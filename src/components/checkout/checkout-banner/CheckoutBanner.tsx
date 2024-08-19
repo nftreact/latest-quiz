@@ -44,6 +44,7 @@ const CheckoutBanner = ({ button, description, discountBar, image, title }: Chec
    */
 
   useEffect(() => {
+    
     localStorage.setItem('timer', String(render(time)));
   }, [render, start]);
 
