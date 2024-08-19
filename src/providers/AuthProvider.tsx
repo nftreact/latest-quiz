@@ -55,9 +55,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children, isShowCons
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
-      <BottomSheet open={state.consentGiven === 'GIVE_CONSENT' && isShowConsent === 'true'}>
+      {/* <BottomSheet open={state.consentGiven === 'GIVE_CONSENT' && isShowConsent === 'true'}>
         <ConsentBanner />
-      </BottomSheet>
+      </BottomSheet> */}
       {children}
     </AuthContext.Provider>
   );
