@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
-import { useQuestionContext } from '@/providers';
-import { Answer } from '@/types/questions';
-import { styled } from 'styled-components';
-import Image from 'next/image';
-import { colors } from '@/theme';
-import { Typography } from '@/primitives';
-import { getCookies } from '@/utils/insdex';
+import { useQuestionContext } from '@/providers'
+import { Answer } from '@/types/questions'
+import { styled } from 'styled-components'
+import Image from 'next/image'
+import { colors } from '@/theme'
+import { Typography } from '@/primitives'
+import { getCookies } from '@/utils/insdex'
 
 /**
  * props
  * _______________________________________________________________________________
  */
 type Props = {
-  answers: Answer[];
-};
+  answers: Answer[]
+}
 
 const GenderQuestion = ({ answers }: Props) => {
   /**
    * const and variables
    * _______________________________________________________________________________
    */
-  const { dispatch } = useQuestionContext();
-  const { type } = getCookies();
+  const { dispatch } = useQuestionContext()
+  const { type } = getCookies()
 
   /**
    * useEffect
@@ -45,7 +45,7 @@ const GenderQuestion = ({ answers }: Props) => {
           <ItemContainer
             key={index}
             onClick={() => {
-              dispatch({ type: 'UPDATE_QUESTIONS', payload: { aid: item.aid, type: type } });
+              dispatch({ type: 'UPDATE_QUESTIONS', payload: { aid: item.aid, type: type } })
             }}
           >
             <ContentBorder />
@@ -55,7 +55,7 @@ const GenderQuestion = ({ answers }: Props) => {
               // loading='lazy'
               fill
               alt='gender-image'
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: 'contain', objectPosition: '' }}
               sizes='(max-width: 768px) 100vw, 33vw'
             />
             <BottomSection>
@@ -65,13 +65,13 @@ const GenderQuestion = ({ answers }: Props) => {
               <CircleOutlined color='inherit' />
             </BottomSection>
           </ItemContainer>
-        );
+        )
       })}
     </Root>
-  );
-};
+  )
+}
 
-export default GenderQuestion;
+export default GenderQuestion
 
 /**
  * styled-component
@@ -87,7 +87,7 @@ const Root = styled.div`
     justify-content: center;
     gap: 40px;
   }
-`;
+`
 
 export const ItemContainer = styled.div`
   width: 50%;
@@ -97,7 +97,7 @@ export const ItemContainer = styled.div`
   height: 90vw;
   position: relative;
   cursor: pointer;
-`;
+`
 
 export const ContentBorder = styled.div`
   position: absolute;
@@ -107,7 +107,7 @@ export const ContentBorder = styled.div`
   bottom: 0;
   border: 2px solid ${colors.secondary};
   border-radius: 8px;
-`;
+`
 
 export const BottomSection = styled.div`
   display: flex;
@@ -120,7 +120,7 @@ export const BottomSection = styled.div`
   bottom: 0;
   border-radius: 0px 0px 8px 8px;
   padding-inline: 16px;
-`;
+`
 
 const CircleOutlined = styled.div`
   width: 17px;
@@ -132,4 +132,4 @@ const CircleOutlined = styled.div`
     width: 20px;
     height: 20px;
   }
-`;
+`
