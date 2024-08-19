@@ -15,6 +15,7 @@
 
 # But keep the BUILD_ID file
 !.next/BUILD_ID
+!.next/routes-manifest.json
 
 /out/
 
