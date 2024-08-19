@@ -40,6 +40,7 @@ const GenderQuestion = ({ answers }: Props) => {
    */
   return (
     <Root>
+
       
       {answers?.map((item, index) => {
         return (
