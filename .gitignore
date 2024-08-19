@@ -10,7 +10,12 @@
 /coverage
 
 # next.js
-/.next/
+# Ignore everything in the .next directory
+.next/*
+
+# But keep the BUILD_ID file
+!.next/BUILD_ID
+
 /out/
 
 # production
