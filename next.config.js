@@ -1,17 +1,17 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: false,
   transpilePackages: ['lodash-es'],
-  reactStrictMode: true,
   unstable_allowDynamic: ['/lib/utilities.js', '/node_modules/function-bind/**'],
   webpack: (config) => {
     config.ignoreWarnings = [
       { module: /node_modules\/node-fetch\/lib\/index\.js/ },
       { file: /node_modules\/node-fetch\/lib\/index\.js/ },
-    ];
+    ]
 
-    return config;
+    return config
   },
   compiler: {
     styledComponents: true,
@@ -74,6 +74,6 @@ const nextConfig = {
       },
     ],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
