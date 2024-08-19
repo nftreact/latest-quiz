@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  output: 'standalone',
   trailingSlash: true,
   reactStrictMode: false,
   transpilePackages: ['lodash-es'],
-  reactStrictMode: true,
   unstable_allowDynamic: ['/lib/utilities.js', '/node_modules/function-bind/**'],
   webpack: (config) => {
     config.ignoreWarnings = [
