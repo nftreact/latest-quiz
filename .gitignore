@@ -32,6 +32,8 @@
 !.next/app-build-manifest.json
 !.next/server
 !.next/static
+!.next/types
+
 
 
 
