@@ -35,7 +35,7 @@ const QuestionTitle = ({ title }: Props) => {
    * _______________________________________________________________________________
    */
   return (
-    <Root tag='h1' variant={'h2'} textalign='center' opacity={opacity} translate={translate}>
+    <Root tag='h1' variant={'h2'} textalign='center' opacity={opacity} translate={translate} fontWeight={600}>
       {title}
     </Root>
   );

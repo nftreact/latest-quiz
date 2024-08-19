@@ -37,7 +37,7 @@ const Guarantee = ({ title, description }: GuaranteeProps) => {
   return (
     <Container>
       <ContentWrapper direction='column' justify='center' gap={'16px'}>
-        <Typography style={{ fontSize: '24px', fontWeight: 700, color: '#090A0A' }}>{title}</Typography>
+        <Typography style={{ fontSize: '24px', fontWeight: 600, color: '#090A0A' }}>{title}</Typography>
         <Typography style={{ fontSize: '14px', color: '#6C727A' }} dangerouslySetInnerHTML={{ __html: description }} />
       </ContentWrapper>
       <div style={{ position: 'absolute', right: '34px', bottom: '-50px' }}>

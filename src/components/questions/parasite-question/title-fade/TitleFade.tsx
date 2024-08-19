@@ -13,14 +13,14 @@ import { getCookies } from '@/utils/insdex';
  * _______________________________________________________________________________
  */
 
-const TitleFade = ({ inputs, thisAid, isResult, nextPage }: TitleFadeBoxProps) => {
+const TitleFade = ({ inputs, thisAid, isResult, nextPage, textColor }: TitleFadeBoxProps) => {
   /**
    * const and variables
    * _______________________________________________________________________________
    */
   const { dispatch } = useQuestionContext();
   const delay = 4000;
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
   const inputsLength = inputs && inputs.texts?.length;
   const { type } = getCookies();
 
@@ -31,7 +31,11 @@ const TitleFade = ({ inputs, thisAid, isResult, nextPage }: TitleFadeBoxProps) =
 
   const goNext = () => {
     if (isResult === 'true') {
-      push(`/${nextPage}`);
+      if (type === 'fastfit') {
+        push(`${nextPage}`);
+      } else {
+        push(`/${nextPage}`);
+      }
     } else {
       dispatch({
         type: 'UPDATE_QUESTIONS',
@@ -60,7 +64,7 @@ const TitleFade = ({ inputs, thisAid, isResult, nextPage }: TitleFadeBoxProps) =
   return (
     <TitleFadeWrapper>
       {inputs?.texts?.map((text, index) => {
-        return <TitleFadeItem key={text + index} text={text} delay={index * delay} />;
+        return <TitleFadeItem key={text + index} text={text} delay={index * delay} textColor={textColor} />;
       })}
     </TitleFadeWrapper>
   );

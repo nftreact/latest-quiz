@@ -1,16 +1,21 @@
-import Image from "next/image"
+import Image from 'next/image';
+import image from '../images/credit-cards.png';
 
 const CreditCardsIcon = () => {
+  const loaderProp = ({ src }: { src: string }) => {
+    return src;
+  };
 
   return (
     <Image
-    src='/images/credit-cards.png'
-    width={100}
-    height={15}
-    alt='credit cards as payment method'
-    style={{filter:'inherit'}}
+      src={image}
+      width={100}
+      height={15}
+      alt='credit cards as payment method'
+      loader={loaderProp}
+      style={{ filter: 'inherit' }}
     />
-  )
-}
+  );
+};
 
-export default CreditCardsIcon
+export default CreditCardsIcon;

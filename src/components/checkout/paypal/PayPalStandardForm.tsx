@@ -29,7 +29,7 @@ const PayPalStandardForm = ({ currency, resultCode }: Props) => {
     if (typeof document !== 'undefined') {
       if (document.getElementById('paypal-button-container')) {
         const script = document.createElement('script');
-        script.src = `https://www.paypal.com/sdk/js?client-id=${THISPROJECT.PAYPAL_CLIENT_ID}&currency=${currency}`;
+        script.src = `https://www.paypal.com/sdk/js?client-id=${THISPROJECT.PAYPAL_CLIENT_ID}`;
         script.setAttribute('id', 'paypal-standard-script');
         script.async = true;
         document.body.appendChild(script);

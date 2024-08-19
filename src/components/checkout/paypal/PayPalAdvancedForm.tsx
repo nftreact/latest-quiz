@@ -1,6 +1,6 @@
 'use client';
 
-import { THISPROJECT } from '@/constants/projects';
+import { THISPROJECT, thisLocale } from '@/constants/projects';
 import { AppFlex, Button } from '@/primitives';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -35,6 +35,7 @@ const PayPalAdvancedForm = ({ clientToken, currency, handleMethod, resultCode }:
    */
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const locale = thisLocale;
 
   /**
    * useEffect
@@ -95,7 +96,9 @@ const PayPalAdvancedForm = ({ clientToken, currency, handleMethod, resultCode }:
                     method: 'post',
                   })
                     .then((res) => {
-                      if (res.ok) return res.json();
+                      if (res.ok) {
+                        return res.json();
+                      }
                     })
                     .then((orderData) => {
                       if (orderData.success === 'true') return router.push(`/payment/success?code=${resultCode}`);
@@ -151,7 +154,7 @@ const PayPalAdvancedForm = ({ clientToken, currency, handleMethod, resultCode }:
         ) : (
           <FaLock />
         )}
-        BUY NOW
+        {locale === 'en_US' ? 'BUY NOW' : 'acquista ora'}
       </Button>
     </form>
   );

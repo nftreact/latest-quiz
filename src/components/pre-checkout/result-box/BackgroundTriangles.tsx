@@ -25,7 +25,7 @@ const Root = styled.section<{ locale: string }>`
   height: 100%;
 
   ${({ locale }) =>
-    locale === 'fa_IR'
+    locale === 'fa_IR' || locale === 'it_US'
       ? css`
           right: 10px;
         `

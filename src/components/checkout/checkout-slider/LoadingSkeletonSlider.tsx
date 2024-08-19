@@ -21,7 +21,7 @@ const loadingAnimation = keyframes`
 `;
 
 const SkeletonContainer = styled.div`
-  height: 200px;
+  min-height: 300px;
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 100%);
   background-size: 200px 100%;
   animation: ${loadingAnimation} 3s infinite linear;

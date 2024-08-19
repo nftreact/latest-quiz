@@ -38,7 +38,7 @@ const HortizonalListItem = ({ description, image, title }: PlansHortizonalListIt
    * _______________________________________________________________________________
    */
   return (
-    <AppFlex gap={"10px"} align='flex-start' style={{ minWidth: '140px' }}>
+    <AppFlex gap={'10px'} align='flex-start'>
       <Image
         src={image}
         width={40}
@@ -48,7 +48,7 @@ const HortizonalListItem = ({ description, image, title }: PlansHortizonalListIt
         loading='lazy'
         loader={loaderProp}
       />
-      <AppFlex direction='column' gap={"5px"}>
+      <AppFlex direction='column' gap={'5px'}>
         <Typography textcolor='#8490a1' fontSize={12} variant='subtitle2'>
           {title}
         </Typography>

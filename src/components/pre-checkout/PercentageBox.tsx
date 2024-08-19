@@ -71,9 +71,9 @@ const PercentageBox = ({ afterText, description, showBox, thisValue }: Percentag
         <Image alt='info-svg-icon' src={Info} width={12} height={12} loader={loaderProp} />
       </ImageWrapper>
       <AppFlex align='center' direction='column'>
-        <Typography textcolor={colors.secondary} fontSize={88} fontWeight={700}>
+        <Typography textcolor={colors.secondary} fontSize={88} fontWeight={600}>
           {value}
-          <Typography textcolor={colors.secondary} fontSize={44} fontWeight={700} tag='span'>
+          <Typography textcolor={colors.secondary} fontSize={44} fontWeight={600} tag='span'>
             {!afterText && typeof afterText !== 'string' && '%'}
             {afterText && afterText}
           </Typography>

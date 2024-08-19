@@ -1,6 +1,5 @@
 'use client';
 
-import { Skeleton } from '@/shared';
 import { useState } from 'react';
 import { keyframes, styled } from 'styled-components';
 import Image from 'next/image';
@@ -43,7 +42,7 @@ const MainImage = ({ currentMainImage }: Props) => {
         alt=''
         loading='lazy'
         fill
-        style={{ objectFit: 'contain', borderRadius: '10px' }}
+        style={{ objectFit: 'fill', borderRadius: '10px' }}
         onLoadingComplete={() => setLoading(false)}
         loader={imageLoader}
       />
@@ -72,8 +71,6 @@ const ImageWrapper = styled.div`
   min-width: 328px;
   width: 60vw;
   height: 140vw;
-  z-index: 1000;
-  margin: auto;
 
   @media (min-width: 600px) {
     width: 400px;
@@ -87,7 +84,7 @@ const ImageWrapper = styled.div`
     background-size: 200px 100%;
     animation: ${loadingAnimation} 4s infinite linear;
     border-radius: 20px;
-    width: 90%;
+    width: 100%;
     max-width: 600px;
   }
 `;

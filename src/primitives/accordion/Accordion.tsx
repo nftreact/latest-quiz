@@ -47,8 +47,6 @@ const Accordion = ({ title, content }: AccordionProps) => {
     }
   }, []);
 
-  
-
   const loaderProp = ({ src }: { src: string }) => {
     return src;
   };

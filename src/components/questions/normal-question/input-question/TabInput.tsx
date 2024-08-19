@@ -39,7 +39,7 @@ const TabInput = ({ units, onUnitSelect, unitSelected }: Props) => {
       {units.map((item, index) => {
         return (
           <TabItem onClick={() => onUnitSelect(item)} key={index}>
-            <p>{item}</p>
+            <p style={{fontWeight:"500"}}>{item}</p>
           </TabItem>
         );
       })}
@@ -77,6 +77,7 @@ const TabItem = styled.div`
   z-index: 1;
   p {
     font-weight: 800;
+    font-size: 15px;
   }
 `;
 

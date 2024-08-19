@@ -1,6 +1,7 @@
 import { getQuestion } from '@/components/questions/questions.services';
 import { QuestionProvider } from '@/providers';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
+import QuestionProgress from '@/components/questions/QuestionProgress';
 
 import {
   getborderImage,
@@ -9,9 +10,6 @@ import {
   getHintSection,
   getQuestionTitle,
 } from '@/utils/insdex';
-import Header from '@/layouts/header/Header';
-import { QUESTION } from '@/types/questions';
-import { AuthProvider } from '@/providers/AuthProvider';
 
 const Questions = async ({ params }: { params: { slug: string } }) => {
   const cookieStore = cookies();
@@ -19,12 +17,15 @@ const Questions = async ({ params }: { params: { slug: string } }) => {
   const userCode = cookieStore.get('code');
   const type = cookieStore.get('type');
   const quesryString = params?.slug[0];
+  const header = headers();
+  const ip = (header.get('x-forwarded-for') ?? '127.0.0.1').split(',')[0];
 
   const question = await getQuestion({
     params: quesryString,
     Authorization: Authorization,
     userCode: userCode,
     type: type,
+    ip,
   });
 
   /**
@@ -33,16 +34,13 @@ const Questions = async ({ params }: { params: { slug: string } }) => {
    */
   return (
     <>
-      <Header question={question as QUESTION} />
-      <AuthProvider isShowConsent={question?.consent}>
-        <QuestionProvider bgColor={question?.parasite.bgColor}>
-          {getQuestionTitle(question?.questionType, question?.text)}
-          {getDescription(question?.description)}
-          {getComponentBaseOnQuestionType(question)}
-          {getHintSection(question)}
-          {getborderImage(question)}
-        </QuestionProvider>
-      </AuthProvider>
+      <QuestionProvider bgColor={question?.parasite.bgColor} questions={question}>
+        {getQuestionTitle(question?.questionType, question?.text)}
+        {getDescription(question?.description)}
+        {getComponentBaseOnQuestionType(question)}
+        {getHintSection(question)}
+        {getborderImage(question)}
+      </QuestionProvider>
     </>
   );
 };

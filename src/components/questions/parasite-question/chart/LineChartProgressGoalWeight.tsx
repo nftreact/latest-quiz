@@ -45,7 +45,7 @@ const LineChartProgressGoalWeight = ({ inputs }: Props) => {
 
     const timeoutId = setTimeout(() => {
       setIsShowLable(true); // Update state to show the label
-    }, 3300);
+    }, 4000);
 
     const goalLableTimeout = setTimeout(() => {
       setGoalValue({
@@ -55,7 +55,7 @@ const LineChartProgressGoalWeight = ({ inputs }: Props) => {
         cy: points[4].y,
         date: goalStrValue[0],
       });
-    }, 3200);
+    }, 3900);
 
     return () => {
       clearTimeout(timeoutId);
@@ -291,7 +291,7 @@ const LineChartProgressGoalWeight = ({ inputs }: Props) => {
       <LableCharts isshowlable={String(isShowLable)} name='goal' goalValue={goalValue} growth={status}>
         <AppFlex className='container' direction='column' align='center' gap={'5px'}>
           <p style={{ fontSize: '16px' }}>{goal}</p>
-          <IoMdArrowDropdown className='lable' fill='#139C90' />
+          <IoMdArrowDropdown className='lable' fill='#139c90' />
         </AppFlex>
       </LableCharts>
 
@@ -306,6 +306,7 @@ const LineChartProgressGoalWeight = ({ inputs }: Props) => {
           </linearGradient>
         </defs>
         <Area
+          style={{ border: '1px solid green', width: '100%' }}
           key={id}
           ref={ref as any}
           animateNewValues={true}
@@ -318,8 +319,8 @@ const LineChartProgressGoalWeight = ({ inputs }: Props) => {
           dataKey='pv'
           fill='url(#colorUv)'
           dot={(props) => CustomizedDot(props)}
-          animationDuration={2000}
-          animationBegin={300}
+          animationDuration={3000}
+          animationBegin={500}
         />
       </LineChartStyled>
     </Root>
@@ -346,8 +347,8 @@ const Root = styled.section`
 const LineChartStyled = styled(AreaChart)`
   &.recharts-surface {
     height: fit-content !important;
-    position: relative !important;
     width: 100% !important;
+    position: relative !important;
   }
 
   & .recharts-cartesian-grid {
@@ -404,7 +405,7 @@ const LableCharts = styled.div<{
     name === 'goal' &&
     growth === 'down' &&
     css`
-      top: 30vw;
+      top: 25vw;
       left: 67vw;
 
       @media (min-width: 600px) {
@@ -419,11 +420,12 @@ const LableCharts = styled.div<{
 
   .lable {
     position: absolute;
-    top: 25px;
+    /* top: 25px; */
     left: 28%;
+    bottom: -15px;
 
     @media (min-width: 450px) {
-      top: 27px;
+      bottom: -17px;
     }
   }
 

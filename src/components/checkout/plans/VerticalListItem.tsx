@@ -51,24 +51,35 @@ const VerticalListItem = forwardRef(({ discounted, index, thisPlan, selectedPlan
             backgroundColor: isSelected ? '#4ed09a' : '#8490a1',
           }}
         >
-          <Typography variant='subtitle1' tag='p' textcolor={colors.white}>
+          <Typography variant='subtitle1' tag='p' textcolor={colors.white} fontWeight={600}>
             {thisPlan?.featuredTitle}
           </Typography>
         </Flag>
       )}
       <CardContainer justify='space-between'>
         {/* /** * TitleCard * _______________________________________________________________________________ */}
-        <TitleCard>
+        <TitleCard direction='column' gap='5px'>
           <Typography
             tag='p'
             fontSize={17}
             textcolor={isSelected ? '#000' : '#8490a1'}
             style={{
-              fontWeight: '700',
+              fontWeight: '600',
               lineHeight: '22px',
             }}
           >
             {thisPlan.title}
+          </Typography>
+          <Typography
+            tag='p'
+            fontSize={12}
+            textcolor={isSelected ? '#000' : '#8490a1'}
+            style={{
+              fontWeight: '600',
+              lineHeight: '22px',
+            }}
+          >
+            {thisPlan.description}
           </Typography>
         </TitleCard>
 
@@ -77,7 +88,7 @@ const VerticalListItem = forwardRef(({ discounted, index, thisPlan, selectedPlan
           <div>
             <Typography
               textcolor={discounted && isSelected ? colors.secondary : '#8490a1'}
-              fontWeight={700}
+              fontWeight={600}
               fontSize={18}
               tag='p'
               style={{
@@ -102,7 +113,7 @@ const VerticalListItem = forwardRef(({ discounted, index, thisPlan, selectedPlan
             <Typography
               tag='p'
               fontSize={14}
-              fontWeight={discounted ? '700' : '400'}
+              fontWeight={discounted ? '600' : '400'}
               textcolor={discounted && isSelected ? 'red' : '#8490a1'}
             >
               {thisPlan?.price?.preUnit}
@@ -110,7 +121,7 @@ const VerticalListItem = forwardRef(({ discounted, index, thisPlan, selectedPlan
             <Typography
               tag='p'
               fontSize={14}
-              fontWeight={discounted ? '700' : '400'}
+              fontWeight={discounted ? '600' : '400'}
               textcolor={discounted && isSelected ? colors.secondary : '#8490a1'}
             >
               {thisPlan?.price?.unit}
@@ -156,6 +167,7 @@ VerticalListItem.displayName = 'VerticalListItem';
 
 const Root = styled.div<{ isselected: boolean | string; featured: string }>`
   background-color: ${({ isselected }) => (isselected === 'true' ? 'white' : '#f7f7f8')};
+  width: 100%;
 
   cursor: pointer;
   border-radius: 8px;
@@ -184,6 +196,8 @@ const CardContainer = styled(AppFlex)`
 
 const TitleCard = styled(AppFlex)`
   width: 55%;
+  align-items: flex-start !important;
+  justify-content: center;
 `;
 
 const PriceCard = styled(AppFlex)`

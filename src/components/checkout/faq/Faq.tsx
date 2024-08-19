@@ -44,7 +44,7 @@ const Faq = ({ faq, backgroundImage, sectionTitle }: FaqProps) => {
    */
   return (
     <Container direction='column' justify='center' align='center' gap={'40px'}>
-      <Typography variant='h1' tag='h1' style={{ position: 'relative', zIndex: '1' }}>
+      <Typography variant='h1' tag='h1' style={{ position: 'relative', zIndex: '1' }} fontWeight={600}>
         {sectionTitle}
       </Typography>
       {backgroundImage && (

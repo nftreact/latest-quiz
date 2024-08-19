@@ -10,8 +10,6 @@ import { colors } from '@/theme';
 import Star from '../../../../public/images/star.svg';
 import Cookies from 'universal-cookie';
 
-
-
 /**
  * props
  * _______________________________________________________________________________
@@ -44,7 +42,6 @@ const CheckoutBanner = ({ button, description, discountBar, image, title }: Chec
    */
 
   useEffect(() => {
-    
     localStorage.setItem('timer', String(render(time)));
   }, [render, start]);
 
@@ -66,7 +63,6 @@ const CheckoutBanner = ({ button, description, discountBar, image, title }: Chec
    * hooks and methods
    * _______________________________________________________________________________
    */
-
   const loaderProp = ({ src }: { src: string }) => {
     return src;
   };
@@ -161,6 +157,7 @@ const Root = styled(AppFlex)`
   max-width: 1200px;
   margin: auto;
   width: 100%;
+  overflow: hidden;
 `;
 
 const Container = styled.div`
@@ -205,12 +202,12 @@ const LeftSection = styled.div`
 const CheckoutTile = styled.h1`
   font-size: 24px;
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
   padding-inline: 16px;
 
   @media (min-width: 600px) {
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   @media (min-width: 900px) {
@@ -242,7 +239,7 @@ const MobileDiscountBar = styled.div<{ discountbar: any; isTimerShowSticky: bool
   left: 0;
   right: 0;
   top: 30px;
-  z-index: 200;
+  z-index: 95;
   width: 100%;
 
   @media (min-width: 900px) {

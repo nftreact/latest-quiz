@@ -1,0 +1,23 @@
+{
+  "fa_IR": {
+    "header": {
+      "button-text": "دریافت برنامه",
+      "discount-text-51": "51% تخفیف تا:",
+      "discount-text-61": "61% تخفیف تا:"
+    }
+  },
+  "en_US": {
+    "header": {
+      "button-text": "sample",
+      "discount-text-51": "Sconto del 51% riservato a:",
+      "discount-text-61": "Sconto del 51% riservato a:"
+    }
+  },
+  "it_US": {
+    "header": {
+      "button-text": "sample",
+      "discount-text-51": "Sconto del 51% riservato a:",
+      "discount-text-61": "Sconto del 51% riservato a:"
+    }
+  }
+}

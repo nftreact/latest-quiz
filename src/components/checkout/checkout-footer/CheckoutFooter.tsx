@@ -44,7 +44,7 @@ const CheckoutFooter = ({ button, description }: CheckoutFooterProps) => {
    * _______________________________________________________________________________
    */
   return (
-    <AppFlex gap={'20px'} direction='column' align='center' style={{ paddingInline: '16px', paddingTop: '40px' }}>
+    <AppFlex gap={'20px'} direction='column' align='center' style={{ paddingInline: '16px', paddingTop: '40px' ,overflow:"hidden" }}>
       <Button onClick={handleButtonClick} variant='checkout' className='checkoutButton'>
         <Typography>{button.text}</Typography>
       </Button>

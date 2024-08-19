@@ -1,6 +1,6 @@
 'use client';
 
-import { THISPROJECT } from '@/constants/projects';
+import { THISPROJECT, thisLanguage } from '@/constants/projects';
 import RootLayout from '@/layouts/RootLayout';
 import { AppFlex, Button, Typography } from '@/primitives';
 import Head from 'next/head';
@@ -9,6 +9,8 @@ import { AfterPayment } from '@/components/payment';
 
 const CancelPayment = () => {
   const { push } = useRouter();
+
+  const language = thisLanguage;
 
   return (
     <>
@@ -28,11 +30,17 @@ const CancelPayment = () => {
       >
         <AfterPayment
           status='cancel'
-          title='Oops!'
-          description='Something went wrong during payment. You can press the button below to return to checkout page.'
+          title={language === 'en' ? 'Oops!!!' : language === 'it' ? 'Oops!!!' : ''}
+          description={
+            language === 'en'
+              ? 'Something went wrong during payment. You can press the button below to return to checkout page.'
+              : language === 'it'
+              ? `Si è verificato un problema durante il pagamento. Puoi cliccare sul pulsante in basso per tornare alla pagina di checkout.`
+              : ''
+          }
         />
         <Button onClick={() => push('/checkout')} variant='checkout'>
-          <Typography>Visit Checkout</Typography>
+          <Typography>{language === 'en' ? 'Visit Checkout' : language === 'it' ? 'tornare alla pagina di checkout' : ''}</Typography>
         </Button>
       </AppFlex>
     </>

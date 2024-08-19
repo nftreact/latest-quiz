@@ -1,12 +1,10 @@
 'use client';
 
-import React, { createContext, useReducer, useEffect, useContext, useState } from 'react';
+import React, { createContext, useReducer, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { QuestionAction, QuestionContextProps, QuestionProviderProps, Questions } from './question-provider.type';
 import styled from 'styled-components';
 import { objectToQueryString } from '@/utils/insdex';
-import { consentGrantedAdStorage } from '@/utils/sample';
-import ConsentBanner from '@/components/ConsentBanner';
 import Cookies from 'universal-cookie';
 
 const initialQuestions: Questions = {
@@ -20,12 +18,16 @@ const initialQuestions: Questions = {
   weight_goal_kg: '',
   type: '',
   calendar: '',
-};
+  email: '',
+  allQuestions: '',
+  currentQuestion: '',
+  };
 
 /**
  * Create the context
  * _______________________________________________________________________________
  */
+
 const QuestionContext = createContext<QuestionContextProps>({
   questions: initialQuestions,
   dispatch: () => {},
@@ -44,7 +46,7 @@ const questionReducer = (state: Questions, action: QuestionAction): Questions =>
   }
 };
 
-const QuestionProvider = ({ children, bgColor }: QuestionProviderProps) => {
+const QuestionProvider = ({ children, bgColor, questions: allQuestions }: QuestionProviderProps) => {
   /**
    * cosnt and variables
    * _______________________________________________________________________________
@@ -52,6 +54,24 @@ const QuestionProvider = ({ children, bgColor }: QuestionProviderProps) => {
   const cookie = new Cookies();
   const [questions, dispatch] = useReducer(questionReducer, initialQuestions);
   const { push } = useRouter();
+
+  useEffect(() => {
+    cookie.remove('noRedirect', {
+      path: '/',
+    });
+
+    cookie.remove('offer', {
+      path: '/',
+    });
+
+    cookie.remove('discount', {
+      path: '/',
+    });
+
+    cookie.remove('isShowboxOffer', {
+      path: '/',
+    });
+  }, []);
 
   /**
    * useEffect
@@ -61,7 +81,7 @@ const QuestionProvider = ({ children, bgColor }: QuestionProviderProps) => {
     const params = objectToQueryString(questions as any);
 
     if (params) {
-      push(`${params}`);
+      push(`/question/${params}`);
     }
   }, [questions]);
 
@@ -100,7 +120,7 @@ const Container = styled.div<{ bgcolor?: string }>`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding-block: 24px;
+  padding-block: 10px 24px;
   padding-inline: 16px;
   padding-bottom: 70px;
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : '')};

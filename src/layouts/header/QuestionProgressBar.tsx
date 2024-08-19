@@ -2,7 +2,7 @@
 
 import { THISPROJECT } from '@/constants/projects';
 import { colors } from '@/theme';
-import { getCookies } from '@/utils/insdex';
+import styled from 'styled-components';
 
 /**
  * props
@@ -35,27 +35,22 @@ const QuestionProgressBar = ({ allQuestions, currentQuestion }: Props) => {
    */
   return (
     <>
-      <section
-        style={{
-          width: '100%',
-          height: '4px',
-          backgroundColor: '#eaeef2',
-          position: 'absolute',
-          bottom: -1,
-          left: 0,
-        }}
-      />
-      <section
-        style={{
-          width: `${(Number(currentQuestion) / Number(allQuestions)) * 100}%`,
-          maxWidth: '100%',
-          height: '4px',
-          backgroundColor: colors.secondary,
-          position: 'absolute',
-          bottom: -1,
-          ...(THISPROJECT.DEFAULT_LOCALE === 'fa_IR' ? { right: 0 } : { left: 0 }),
-        }}
-      />
+      <Root>
+        <section
+          style={{
+            zIndex: 100,
+            width: `${(Number(currentQuestion) / Number(allQuestions)) * 100}%`,
+            maxWidth: '100%',
+            height: '100%',
+            backgroundColor: colors.secondary,
+            position: 'absolute',
+            margin: 'auto',
+            borderRadius: '5px',
+            transition: 'all 10ms ease',
+            ...(THISPROJECT.DEFAULT_LOCALE === 'fa_IR' ? { right: 0 } : { left: 0 }),
+          }}
+        />
+      </Root>
     </>
   );
 };
@@ -66,3 +61,18 @@ export default QuestionProgressBar;
  * styled-component
  * _______________________________________________________________________________
  */
+
+const Root = styled.section`
+  position: relative;
+  height: 6px;
+  width: 92%;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #e9ecef;
+  z-index: 100;
+  margin-top: 5px;
+
+  @media (min-width: 500px) {
+    width: 97%;
+  }
+`;

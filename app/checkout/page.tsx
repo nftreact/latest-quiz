@@ -12,6 +12,8 @@ import React from 'react';
 import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { PreCheckoutHeader } from '@/components/pre-checkout';
+import NewSlider from '@/components/questions/NewSlider';
+import NewComments from '@/components/questions/NewComments';
 
 const CheckoutFooter = dynamic(() => import('@/components/checkout/checkout-footer/CheckoutFooter'));
 const Comments = dynamic(() => import('@/components/checkout/checkout-comments/Comments'));
@@ -77,8 +79,8 @@ const CheckoutPage = async () => {
         currency={currency}
         clientToken={clientToken}
       />
-      <CheckoutSlider horizontalComments={horizontalComments} />
-      <Comments sectionTitle={comments.sectionTitle} comments={comments.items} />
+      <NewSlider horizontalComments={horizontalComments} />
+      <NewComments sectionTitle={comments.sectionTitle} comments={comments.items} />
       <Faq faq={faq?.items} backgroundImage={faq?.backgroundImage} sectionTitle={faq?.sectionTitle} />
       {guarantee && <Guarantee title={guarantee?.guaranteeTitle} description={guarantee?.guaranteeDescription} />}
       <CheckoutFooter button={button} description={footer.description} />

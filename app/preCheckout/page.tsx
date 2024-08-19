@@ -1,20 +1,11 @@
 import React from 'react';
-import { getPreCheckout } from '../../src/components/pre-checkout/preCheckout.services';
 import { cookies } from 'next/headers';
-import {
-  PercentageBox,
-  PreCheckoutBanner,
-  PreCheckoutButton,
-  PreCheckoutHeader,
-  ResultBox,
-} from '@/components/pre-checkout';
-import { PreCheckoutResult } from '@/types/pre-checkout';
-import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
+import PreCheckoutMain from '@/components/pre-checkout/PreCheckoutMain';
+import FastfitPreCheckout from '@/components/pre-checkout/FastfitPreCheckout';
 
 async function POST(request: NextRequest) {
   const response = NextResponse.json({ status: 200 });
-
   // Then set a cookie
   response.cookies.set({
     name: 'jwt',
@@ -26,19 +17,31 @@ async function POST(request: NextRequest) {
   return response;
 }
 
-const preCheckoutPage = async () => {
+const preCheckoutPage = async ({
+  searchParams,
+}: {
+  searchParams: {
+    discount: string;
+    offer: string;
+    show: string;
+    token: string;
+    type: string;
+    code: string;
+    project: string;
+  };
+}) => {
   /**
    * const and variables
    * _______________________________________________________________________________
    */
   const cookieStore = cookies();
-  const Authorization = cookieStore.get('Authorization')?.value;
-  const code = cookieStore.get('code')?.value;
-  const { summery, highlight, button, header } = (await getPreCheckout({ Authorization, code })) as PreCheckoutResult;
+  const Authorization: any =
+    searchParams.project === 'chatfit' ? searchParams.token : cookieStore.get('Authorization')?.value;
+  const code = searchParams.project === 'chatfit' ? searchParams.code : cookieStore.get('code')?.value;
+  const type = searchParams.project === 'chatfit' ? searchParams.type : cookieStore.get('type')?.value;
+  const project = searchParams.project;
 
-  if (summery?.items?.length < 1 || summery === undefined) {
-    redirect('/error');
-  }
+  // services
 
   /**
    * template
@@ -46,53 +49,19 @@ const preCheckoutPage = async () => {
    */
   return (
     <>
-      <PreCheckoutHeader />
-      <section style={{ paddingTop: '45px' }}>
-        <PreCheckoutBanner bgColor={header?.bgColor} text={header?.text} image={header?.image} />
-        <section
-          style={{
-            gap: '10px',
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: '600px',
-            margin: 'auto',
-            paddingInline: '16px',
-          }}
-        >
-          <ResultBox
-            title={summery?.title}
-            scaleList={summery?.lineBar?.scaleList}
-            thisValue={Number(summery?.lineBar?.value)}
-            warningTitle={summery?.lineBar?.warningTitle}
-            warningDescription={summery?.lineBar?.warningDescription}
-            isSummary={true}
-            items={summery?.items}
-            borderImage={summery?.borderImage}
-            showBox={true}
-            showContent={true}
-            lineBarLabel={summery?.lineBar.label}
-            video={summery?.video}
-          />
-
-          <ResultBox
-            title={highlight?.title}
-            scaleList={highlight?.lineBar.scaleList}
-            thisValue={Number(highlight?.lineBar.value)}
-            items={highlight?.items}
-            borderImage={highlight?.borderImage}
-            showBox={true}
-            showContent={true}
-            lineBarLabel={highlight?.lineBar.label}
-          />
-          <PercentageBox
-            thisValue={Number(highlight?.percentage?.value)}
-            description={highlight?.percentage?.description}
-            showBox={true}
-            afterText={highlight?.percentage?.afterText}
-          />
-        </section>
-        <PreCheckoutButton inputs={button} />
-      </section>
+      {type === 'fastfit' ? (
+        <FastfitPreCheckout
+          discount={searchParams.discount}
+          offer={searchParams.offer}
+          show={searchParams.show}
+          Authorization={Authorization}
+          code={code}
+          type={type}
+          project={project}
+        />
+      ) : (
+        <PreCheckoutMain Authorization={Authorization} code={code} type={type} project={searchParams.project} />
+      )}
     </>
   );
 };

@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import Cookies from 'universal-cookie';
+import EmailInput from './input-question/EmaiInput';
+import { Decode, DecodeBase64, Encode, parseQueryParams } from '@/utils/insdex';
 
 const GenderQuestion = dynamic(() => import('./GenderQuestion'));
 const SelectQuestion = dynamic(() => import('./select-question/SelectQuestion'));
@@ -30,6 +32,8 @@ const NormalQuestionRootComponent = ({ question }: Props) => {
   const [opacity, setOpacity] = useState(0);
   const [translate, setTranslate] = useState('40px');
 
+  //
+
   /**
    * useEffect
    * _______________________________________________________________________________
@@ -43,9 +47,6 @@ const NormalQuestionRootComponent = ({ question }: Props) => {
   }, []);
 
   useEffect(() => {
-    cookie.set('isShowConsent', question?.consent, {
-      path: '/',
-    });
     const obj = {
       Authorization: question?.token,
       type: question?.type,
@@ -57,6 +58,16 @@ const NormalQuestionRootComponent = ({ question }: Props) => {
     };
 
     setCookies(obj, {}, cookie);
+  }, []);
+
+  useEffect(() => {
+    if (Number(question?.currentQuestion) < 4) {
+      localStorage.removeItem('defaultUnit');
+    }
+  }, [question?.currentQuestion]);
+
+  useEffect(() => {
+    localStorage.removeItem('timer');
   }, []);
 
   /**
@@ -81,7 +92,11 @@ const NormalQuestionRootComponent = ({ question }: Props) => {
       case 'Calendar':
         return <CalendarQuestion key={3} answer={question.answers[0]} error={''} />;
       case 'inputQuestion':
-        return <InputQuestion answer={question.answers[0]} questionType={question?.inputQuestion} />;
+        if (question.inputQuestion !== 'email') {
+          return <InputQuestion answer={question.answers[0]} questionType={question?.inputQuestion} />;
+        } else if (question.inputQuestion === 'email') {
+          return <EmailInput answer={question.answers[0]} />;
+        }
       default:
         return null;
     }

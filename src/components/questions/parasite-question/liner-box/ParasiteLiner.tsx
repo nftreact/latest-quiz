@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components';
 import LinearProgress from './LinearProgress';
 import { useQuestionContext } from '@/providers';
 import { getCookies } from '@/utils/insdex';
-import { THISPROJECT, thisLocale } from '@/constants/projects';
+import { THISPROJECT, thisLanguage, thisLocale } from '@/constants/projects';
 import { toast } from 'react-toastify';
 
 /**
@@ -29,9 +29,17 @@ const ParasiteLiner = ({ inputs, thisAid, firstStep, secondtStep, thirdStep }: P
    * _______________________________________________________________________________
    */
   const { dispatch } = useQuestionContext();
+
   const { type } = getCookies();
   const [isEnableBtn, setIsEnableBtn] = useState(false);
-  const locale = thisLocale;
+  const language = thisLanguage;
+
+  const toastText =
+    language === 'en'
+      ? 'Matcha AI is analyzing your condition, please wait.'
+      : language === 'it'
+      ? `L'intelligenza artificiale Matcha sta analizzando la tua situazione, attendi.`
+      : 'هوش مصنوعی ماچا در حال تحلیل شرایط شماست، لطفا منتظر بمانید';
 
   /**
    * useEffect
@@ -45,7 +53,7 @@ const ParasiteLiner = ({ inputs, thisAid, firstStep, secondtStep, thirdStep }: P
 
   const handleButton = () => {
     if (!isEnableBtn) {
-      toast.warning('هوش مصنوعی ماچا در حال تحلیل شرایط شماست، لطفا منتظر بمانید');
+      toast.warning(toastText);
     } else {
       dispatch({
         type: 'UPDATE_QUESTIONS',
@@ -86,7 +94,7 @@ const ParasiteLiner = ({ inputs, thisAid, firstStep, secondtStep, thirdStep }: P
           <Typography
             style={{
               textAlign: 'center',
-              marginRight: '-30px',
+              marginRight: '10px',
               direction: THISPROJECT.DEFAULT_LOCALE === 'fa_IR' ? 'rtl' : 'ltr',
             }}
             tag='p'
@@ -95,7 +103,7 @@ const ParasiteLiner = ({ inputs, thisAid, firstStep, secondtStep, thirdStep }: P
           />
         )}
         <ButtonStyle isEnableBtn={isEnableBtn} variant='question' onClick={handleButton} position='fixed'>
-          <Typography color='#fff'>{locale !== "fa_IR" ? 'Next' : 'بعدی'}</Typography>
+          <Typography color='#fff'>{language === 'en' ? 'Next' : language === 'it' ? 'Continua' : 'بعدی'}</Typography>
         </ButtonStyle>
       </Root>
     );

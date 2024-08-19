@@ -2,7 +2,7 @@
 
 import { AfterPayment } from '@/components/payment';
 import { confirmPayPalFetcher } from '@/components/payment/payment.services';
-import { THISPROJECT } from '@/constants/projects';
+import { THISPROJECT, thisLanguage } from '@/constants/projects';
 import { AppFlex, Button, Typography } from '@/primitives';
 import { useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 const SuccessPayment = () => {
   const router = useSearchParams();
   const code = router.get('code');
+  const language = thisLanguage;
 
   const { data, isFetching } = useQuery({
     queryKey: [code],
@@ -47,14 +48,21 @@ const SuccessPayment = () => {
       >
         <AfterPayment
           status='success'
-          title='Thank you!'
-          description='You will be redirected to your panel soon. You can also click on the button below to visit the panel.'
+          title={language === 'en' ? 'Thank you!' : language === 'it' ? 'Grazie!' : ''}
+          description={
+            language === 'en'
+              ? `You will be redirected to your panel soon. You can also click on the button below to visit the panel.`
+              : language === 'it'
+              ? `Verrai reindirizzato al tuo pannello a breve. Puoi anche cliccare sul pulsante in basso per accedere direttamente.
+          `
+              : ''
+          }
         />
         <Button
           onClick={() => (data && data?.success === 'true' ? window.location.assign(data?.data?.panelLink) : {})}
           variant='checkout'
         >
-          <Typography>Visit Panel</Typography>
+          <Typography>{language === 'en' ? 'Visit Panel' : language === 'it' ? 'Vai al pannello' : ''}</Typography>
         </Button>
       </AppFlex>
     </>

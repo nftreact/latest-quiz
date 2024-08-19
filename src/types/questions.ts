@@ -48,7 +48,7 @@ export interface DescriptionElementInputs {
 }
 
 export interface QUESTION {
-  consent: string;
+  hasHeader: any;
   token: string;
   answers: Answer[];
   code: string;
@@ -83,6 +83,7 @@ export interface QUESTION {
   currentQuestion: string;
   preAid: string;
   parasite: {
+    textSize(textSize: any): number | undefined;
     aid: string;
     bgColor: string;
     elements: ELEMENT[];
@@ -99,4 +100,5 @@ export interface TitleFadeBoxProps {
   thisAid: string;
   isResult: 'true' | 'false';
   nextPage: string;
+  textColor: string;
 }

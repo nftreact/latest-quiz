@@ -6,7 +6,7 @@ import { styled } from 'styled-components';
 import 'rc-slider/assets/index.css';
 import LineBar from './LineBar';
 import { useEffect, useState } from 'react';
-import { THISPROJECT } from '@/constants/projects';
+import { THISPROJECT, thisLanguage } from '@/constants/projects';
 import ResultList from './ResultList';
 import BackgroundTriangles from './BackgroundTriangles';
 import { useWindowScrollPositions } from '@/hooks';
@@ -78,13 +78,17 @@ const ResultBox = (props: ResultBoxProps) => {
   }, [scrollY]);
 
   useEffect(() => {
-    setValue(THISPROJECT.DEFAULT_TYPE === 'fit' ? 100 - thisValue : thisValue);
+    setValue(thisLanguage === 'ir' ? 100 - thisValue : thisValue);
   }, []);
 
   /**
    * hooks and methods
    * _______________________________________________________________________________
    */
+
+  const loaderProp = ({ src }: { src: string }) => {
+    return src;
+  };
 
   /**
    * template
@@ -121,6 +125,7 @@ const ResultBox = (props: ResultBoxProps) => {
           {borderImage && (
             <div style={{ marginTop: '0px' }}>
               <Image
+                loader={loaderProp}
                 className={`resultBoxBorderImage${showContent ? 'Shown' : ''}`}
                 src={borderImage}
                 width={120}
@@ -129,7 +134,7 @@ const ResultBox = (props: ResultBoxProps) => {
                 style={{
                   height: 'auto',
                   position: 'absolute',
-                  zIndex: '1',
+                  zIndex: 1,
                   bottom: '0',
                   ...(THISPROJECT.DEFAULT_LOCALE === 'fa_IR' ? { right: 0 } : { left: 0 }),
                 }}

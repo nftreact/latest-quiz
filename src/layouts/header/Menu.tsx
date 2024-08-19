@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { AppFlex, Typography } from '@/primitives';
-import { THISPROJECT, menuItems } from '@/constants/projects';
+import { THISPROJECT } from '@/constants/projects';
 
 /**
  * props
@@ -16,6 +16,7 @@ const Menu = () => {
    * const and variables
    * _______________________________________________________________________________
    */
+  const menu = THISPROJECT.MENU_ITEMS as any;
 
   /**
    * useEffect
@@ -44,10 +45,10 @@ const Menu = () => {
         />
       </Link>
       <Divider />
-      <AppFlex direction='column' align='center' gap={"10px"} style={{ marginTop: '20px' }}>
-        {menuItems?.map(({ name, path }) => (
-          <Link href={path} target='_blank' key={name}>
-            <Typography variant='body2'>{name}</Typography>
+      <AppFlex direction='column' align='center' gap={'10px'} style={{ marginTop: '20px' }}>
+        {menu[0]?.map((item: any, iindex: number) => (
+          <Link href={item.path} target='_blank' key={iindex}>
+            <Typography variant='body2'>{item.name}</Typography>
           </Link>
         ))}
       </AppFlex>

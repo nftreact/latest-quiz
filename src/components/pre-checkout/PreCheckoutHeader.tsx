@@ -35,6 +35,12 @@ const PreCheckoutHeader = ({}: Props) => {
    * _______________________________________________________________________________
    */
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('defaultUnit');
+    };
+  }, []);
+
   /**
    * hooks and methods
    * _______________________________________________________________________________
@@ -44,6 +50,10 @@ const PreCheckoutHeader = ({}: Props) => {
     setOpenMenu((prevState) => !prevState);
   };
 
+  const loaderProp = ({ src }: { src: string }) => {
+    return src;
+  };
+
   /**
    * template
    * _______________________________________________________________________________
@@ -51,7 +61,15 @@ const PreCheckoutHeader = ({}: Props) => {
   return (
     <Container>
       <GiHamburgerMenu onClick={() => setOpenMenu(!openMenu)} style={{ cursor: 'pointer' }} />
-      <Image src={THISPROJECT.LOGO_URL} alt={'header-logo'} width={100} height={30} className='logo' priority />
+      <Image
+        loader={loaderProp}
+        src={THISPROJECT.LOGO_URL}
+        alt={'header-logo'}
+        width={100}
+        height={30}
+        className='logo'
+        priority
+      />
       <Drawer
         open={openMenu}
         onClose={toggleDrawer}
@@ -80,7 +98,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  z-index: 1000;
+  z-index: 99;
+  overflow: hidden;
 
   .logo {
     margin-inline: auto;

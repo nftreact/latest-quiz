@@ -1,1 +1,0 @@
-"use strict";exports.id=322,exports.ids=[322],exports.modules={8322:(e,r,s)=>{s.r(r),s.d(r,{$$typeof:()=>t,__esModule:()=>a,default:()=>i});let o=(0,s(6843).createProxy)(String.raw`/Users/alihasani/Workspace/mansoor/quize/src/components/confirm-pay/fa-confirmPay/FaConfirmPay.tsx`),{__esModule:a,$$typeof:t}=o,i=o.default}};

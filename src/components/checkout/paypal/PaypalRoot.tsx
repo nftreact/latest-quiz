@@ -1,18 +1,23 @@
 'use client';
 
-import { Typography } from '@/primitives';
+import { AppFlex, Typography } from '@/primitives';
 import { memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PayPalStandardForm from './PayPalStandardForm';
 import PayPalAdvancedForm from './PayPalAdvancedForm';
 import PaymentMethods from './PaymentMethods';
 import { IoIosClose } from 'react-icons/io';
+import { thisLocale } from '@/constants/projects';
+import { hasDecimal } from '@/utils/hasDecimal';
 
 /**
  * props
  * _______________________________________________________________________________
  */
 type Props = {
+  unitSymbol?: string;
+  off?: string | undefined | any;
+  isNewCheckout?: boolean;
   paymentModal: any;
   priceUnit: string;
   currency: string | undefined;
@@ -24,9 +29,19 @@ type Props = {
   fullPrice: number;
   discountedPrice: number;
   handleCloseModal: (value: boolean) => void;
+  price?: {
+    reqularPrice: {
+      price: any;
+    };
+    discountedPrice: {
+      price: any;
+    };
+  };
 };
 
 const PaypalRoot = ({
+  unitSymbol,
+  price,
   paymentModal,
   priceUnit,
   clientToken,
@@ -37,14 +52,21 @@ const PaypalRoot = ({
   open,
   resultCode,
   selectedPlanId,
+  isNewCheckout,
+  off,
   handleCloseModal,
 }: Props) => {
   /**
    * const and variables
    * _______________________________________________________________________________
    */
+
   const [activeMethod, setActiveMethod] = useState<'paypal' | 'credit'>('paypal');
   const handleMethod = (thisMethod: 'paypal' | 'credit') => setActiveMethod(thisMethod);
+  const locale = thisLocale;
+  const dicountedPriceValue = price?.reqularPrice.price - price?.discountedPrice.price;
+  const discontedValue =
+    hasDecimal(dicountedPriceValue) === true ? dicountedPriceValue.toFixed(2) : dicountedPriceValue;
 
   /**
    * useEffect
@@ -74,7 +96,7 @@ const PaypalRoot = ({
         <IoIosClose />
       </CloseWrapper>
       <Typography textalign='center' className='title-typo'>
-        Select Payment Method
+        {locale === 'en_US' ? ' Select Payment Method' : 'Seleziona il metodo di pagamento'}
       </Typography>
       <MobileViewPaypalMethods>
         <PaymentMethods activeMethod={activeMethod} handleMethod={handleMethod} />
@@ -82,34 +104,42 @@ const PaypalRoot = ({
       <Container>
         {/* SummeryWrapper  _______________________________________________________________________________*/}
         <SummeryWrapper>
-          <Typography>Your Order Summary</Typography>
-          <div>
-            {paymentModal?.map((item: any, index: number) => {
-              if ((item.title.includes('discount') && discounted) || !item.title.includes('discount'))
-                return (
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }} key={index}>
-                    <Typography color='#6c727a' style={{ color: '#6c727a', fontSize: '14px' }}>
-                      {item.title}
-                    </Typography>
-                    <Typography style={{ fontSize: '14px' }} color={item?.color}>
-                      {item?.value}
-                    </Typography>
-                  </div>
-                );
-            })}
-          </div>
+          <Typography>{locale === 'en_US' ? 'Your Order Summary' : `Riepilogo dell'ordine`}</Typography>
+          <AppFlex direction='column' style={{ width: '100%' }}>
+            <AppFlex justify='space-between' style={{ width: '100%' }} align='center'>
+              <Typography style={{ color: '#6c727a', fontSize: '14px' }}>{paymentModal?.target}</Typography>
+              <Typography style={{ fontSize: '14px' }}>
+                {price?.reqularPrice.price}
+                {`  ${unitSymbol}  `}
+              </Typography>
+            </AppFlex>
+            {discounted && (
+              <AppFlex justify='space-between' align='center' style={{ width: '100%' }}>
+                <Typography style={{ color: 'red', fontSize: '14px' }}>
+                  {' '}
+                  {`${off}   introductory offer discount`}
+                </Typography>
+                <Typography style={{ color: 'red', fontSize: '14px' }}>
+                  {discontedValue}
+                  {`  ${unitSymbol}  `}
+                </Typography>
+              </AppFlex>
+            )}
+          </AppFlex>
+
           <Divider isshow={true} />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography style={{ fontSize: '18px' }}>total</Typography>
+            <Typography style={{ fontSize: '18px' }}>{locale === 'en_US' ? 'total' : 'totale'}</Typography>
             <Typography style={{ fontSize: '18px' }}>{`${
-              discounted ? discountedPrice : fullPrice
-            } ${priceUnit}`}</Typography>
+              price?.discountedPrice.price ? price?.discountedPrice.price : price?.reqularPrice.price
+            } ${`  ${unitSymbol}  `}`}</Typography>
           </div>
           {discounted && (
-            <Typography
-              textalign='right'
-              style={{ color: '#e04141', fontSize: '12px', marginTop: '-13px' }}
-            >{`You just saved ${fullPrice - discountedPrice} ${priceUnit}`}</Typography>
+            <Typography textalign='right' style={{ color: 'red', fontSize: '12px', marginTop: '-13px' }}>
+              {locale === 'en_US'
+                ? `You just saved ${discontedValue} ${`  ${unitSymbol}  `} ${off}`
+                : `Hai risparmiato il ${discontedValue} ${`  ${unitSymbol}  `} ${off}`}
+            </Typography>
           )}
         </SummeryWrapper>
         <Divider isshow={false} />
@@ -145,10 +175,10 @@ export default memo(PaypalRoot);
 
 const Root = styled.section`
   position: relative;
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   margin: auto;
-  padding: 40px;
+  padding: 40px 10px;
   background-color: #fff;
   display: flex;
   flex-direction: column;

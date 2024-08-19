@@ -1,13 +1,15 @@
 'use client';
 
-import { AppFlex, Typography } from '@/primitives';
+import { AppFlex, Button, Typography } from '@/primitives';
 import { useQuestionContext } from '@/providers';
 import React, { useEffect, useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import Cookies from 'universal-cookie';
 import MultiLineTypo from './MultiLineTypo';
+import { thisLanguage } from '@/constants/projects';
+import { toast } from 'react-toastify';
 
 /**
  * props
@@ -21,6 +23,7 @@ type Props = {
   secondtStep: number;
   thirdStep: number;
   forthStep: number;
+  hasDisableBtn?: boolean;
 };
 
 type PROGRESS = {
@@ -34,17 +37,26 @@ type PROGRESS = {
   type: string;
 };
 
-const MultiLinearProgress = ({ data, aid, firstStep, secondtStep, thirdStep, forthStep }: Props) => {
+const MultiLinearProgress = ({ data, aid, firstStep, secondtStep, thirdStep, forthStep, hasDisableBtn }: Props) => {
   /**
    * const and variables
    * _______________________________________________________________________________
    */
   const [progressState, setProgressState] = useState<PROGRESS>(data[0]);
   const [progress, setProgress] = useState(0);
+  const [isEnableBtn, setIsEnableBtn] = useState(true);
   const [animationStyle, setAnimationStyle] = useState('');
   const { dispatch } = useQuestionContext();
   const cookie = new Cookies();
   const type = cookie.get('type');
+
+  const language = thisLanguage;
+  const toastText =
+    language === 'en'
+      ? 'Matcha AI is analyzing your condition, please wait.'
+      : language === 'it'
+      ? `L'intelligenza artificiale Matcha sta analizzando la tua situazione, attendi.`
+      : 'هوش مصنوعی ماچا در حال تحلیل شرایط شماست، لطفا منتظر بمانید';
 
   /**
    * useEffect
@@ -102,6 +114,26 @@ const MultiLinearProgress = ({ data, aid, firstStep, secondtStep, thirdStep, for
     }
 
     if (progress === 100) {
+      if (hasDisableBtn) {
+        setIsEnableBtn(false);
+      } else {
+        dispatch({
+          type: 'UPDATE_QUESTIONS',
+          payload: {
+            aid: aid,
+            type: type,
+          },
+        });
+      }
+    }
+
+    return () => clearInterval(interval);
+  }, [progress]);
+
+  const handleButton = () => {
+    if (isEnableBtn) {
+      toast.warning(toastText);
+    } else {
       dispatch({
         type: 'UPDATE_QUESTIONS',
         payload: {
@@ -110,9 +142,7 @@ const MultiLinearProgress = ({ data, aid, firstStep, secondtStep, thirdStep, for
         },
       });
     }
-
-    return () => clearInterval(interval);
-  }, [progress]);
+  };
 
   /**
    * hooks and methods
@@ -132,6 +162,9 @@ const MultiLinearProgress = ({ data, aid, firstStep, secondtStep, thirdStep, for
         text={`${Math.round(progress)}%`}
       />
       <MultiLineTypo color={progressState.color} text={progressState.text} animationStyle={animationStyle} />
+      <ButtonStyle isEnableBtn={isEnableBtn} variant='question' onClick={handleButton} position='fixed'>
+        <Typography color='#fff'>{language === 'en' ? 'Next' : language === 'it' ? 'Continua' : 'بعدی'}</Typography>
+      </ButtonStyle>
     </Root>
   );
 };
@@ -143,7 +176,7 @@ export default MultiLinearProgress;
  * _______________________________________________________________________________
  */
 const Root = styled(AppFlex)`
-  padding-block: 40px;
+  padding-block: 10px 20px;
 
   @keyframes fade-in {
     from {
@@ -175,10 +208,15 @@ const Root = styled(AppFlex)`
 `;
 
 const CircularProgressbarStyle = styled(CircularProgressbar)<{ color: string }>`
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   margin: auto;
-  margin-block: 10px;
+  /* margin-block: 10px; */
+
+  @media (min-width: 800px) {
+    width: 170px;
+    height: 170px;
+  }
 
   & .CircularProgressbar-path {
     stroke: ${({ color }) => color && color} !important;
@@ -188,4 +226,26 @@ const CircularProgressbarStyle = styled(CircularProgressbar)<{ color: string }>`
   & .CircularProgressbar-text {
     stroke: ${({ color }) => color && color} !important;
   }
+`;
+
+const ButtonStyle = styled(Button)<{ isEnableBtn: boolean }>`
+  ${({ isEnableBtn }) =>
+    isEnableBtn &&
+    css`
+      background-color: #f5f5f5;
+      box-shadow: none;
+      color: #606060;
+
+      &:focus {
+        background-color: #f5f5f5;
+        border: none;
+        outline: none;
+      }
+
+      &:hover {
+        background-color: #f5f5f5;
+        border: none;
+        outline: none;
+      }
+    `};
 `;

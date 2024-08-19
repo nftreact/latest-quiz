@@ -40,11 +40,11 @@ const WhatYouGet = ({ sectionTitle, wyg, video }: WygProps) => {
    */
   return (
     <Container gap={'20px'} direction='column' align='center'>
-      <Typography variant='h1' tag='h1'>
+      <Typography variant='h1' tag='h1' fontWeight={600}>
         {sectionTitle}
       </Typography>
       {/* {video && <VideoPlayer inputs={video} />} */}
-      <AppFlex direction='column' gap={"20px"}>
+      <AppFlex direction='column' gap={'20px'}>
         {wyg?.map((item, i) => {
           return (
             <WygCard
@@ -71,4 +71,5 @@ const Container = styled(AppFlex)`
   padding: 24px 16px;
   margin: auto;
   max-width: 600px;
+  overflow: hidden;
 `;

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -11,32 +15,61 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: var(--en-fonts);
 
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
   --toastify-color-warning: rgb(61, 212, 175) !important;
 
   .Toastify__toast-body {
-    font-family: __fonts_5c340c, __fonts_Fallback_5c340c;
+    font-family: var(--en-fonts);
   }
+}
+
+.chartAnimation {
+  animation: revealFromLeft 2.5s ease-in-out forwards;
+}
+
+.singleChartAnimation {
+  animation: revealFromLeftByPx 2.5s ease-in-out forwards;
+}
+
+.gridLineFade {
+  animation: fadeIn 0.3s forwards 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+}
+
+.modal__popup {
+  padding: 15px 10px !important;
+}
+
+.modal__body {
+  display: flex;
+  justify-content: center;
 }
 
 .modal__close-button {
   color: #000;
-}
-
-[data-rsbs-backdrop] {
-  z-index: 10000;
-}
-
-[data-rsbs-overlay] {
-  z-index: 100000;
 }
 
 a {
@@ -45,11 +78,13 @@ a {
 }
 
 button {
-  font-family: '__fonts_5c340c';
+  font-family: var(--en-fonts);
 }
 
 input {
   font-family: inherit;
+  touch-action: none !important;
+  -webkit-user-scalable: no !important;
 }
 
 input::-webkit-outer-spin-button,
@@ -76,18 +111,47 @@ ul {
     * _______________________________________________________________________________
     */
 
+input {
+  -webkit-text-size-adjust: 100%;
+}
+
+input::-webkit-inner-spin-button {
+  /* Hide the spinner */
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  /* Optional: Remove default margin */
+}
+
+/* Additional styling for autofill */
+input:-internal-autofill-selected {
+  background-color: inherit !important;
+  background: inherit !important;
+  color: inherit !important;
+}
+
 .EZDrawer .EZDrawer__checkbox {
   display: none;
 }
 
-.EZDrawer .EZDrawer__checkbox:checked ~ .EZDrawer__overlay {
+.EZDrawer .EZDrawer__checkbox:checked~.EZDrawer__overlay {
   display: block;
   opacity: 1;
 }
 
-.EZDrawer .EZDrawer__checkbox:checked ~ .EZDrawer__container {
+.EZDrawer .EZDrawer__checkbox:checked~.EZDrawer__container {
   visibility: visible;
   transform: translate3d(0, 0, 0) !important;
+}
+
+.modal__popup {
+  max-width: 1000px !important;
+  max-height: 95vh;
+  padding: 0;
+}
+
+.PaypalRoot {
+  border: 1px solid red;
 }
 
 .EZDrawer .EZDrawer__overlay {
@@ -97,6 +161,10 @@ ul {
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+.modal {
+  z-index: 100;
 }
 
 .EZDrawer .EZDrawer__container {
@@ -182,6 +250,7 @@ ul {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -191,6 +260,7 @@ ul {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -210,6 +280,7 @@ ul {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -219,6 +290,7 @@ ul {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -351,7 +423,8 @@ div#payment-summary .MuiListItemSecondaryAction-root {
 }
 
 .paymentMethod .inActive {
-  -webkit-filter: grayscale(75%); /* Safari 6.0 - 9.0 */
+  -webkit-filter: grayscale(75%);
+  /* Safari 6.0 - 9.0 */
   filter: grayscale(75%);
   border: 1px solid #d2d5da;
   background: #f7f7f8;
@@ -438,9 +511,48 @@ form#card-form .submit-button:disabled {
   background: #e041411c !important;
 }
 
-.payments-sdk-contingency-handler
-  payments-sdk-contingency-handler-tag-payments-sdk-contingency-handler
-  payments-sdk-contingency-handler-context-iframe
-  payments-sdk-contingency-handler-focus {
+.payments-sdk-contingency-handler payments-sdk-contingency-handler-tag-payments-sdk-contingency-handler payments-sdk-contingency-handler-context-iframe payments-sdk-contingency-handler-focus {
   z-index: 9999 !important;
+}
+
+.chartAnimation {
+  animation: revealFromLeft 2s ease-in-out forwards;
+}
+
+@keyframes revealFromLeft {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+.singleChartAnimation {
+  animation: revealFromLeftByPx 2s ease-in-out forwards;
+}
+
+@keyframes revealFromLeftByPx {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+.gridLineFade {
+  animation: fadeIn 0.3s forwards 2s
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100%;
+  }
 }

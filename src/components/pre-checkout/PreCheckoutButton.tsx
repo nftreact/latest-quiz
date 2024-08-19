@@ -2,6 +2,7 @@
 
 import { Button, Typography } from '@/primitives';
 import { useRouter } from 'next/navigation';
+import Cookies from 'universal-cookie';
 
 /**
  * props
@@ -24,7 +25,8 @@ const PreCheckoutButton = ({ inputs }: PreCheckoutNextButtonProps) => {
    * const and variables
    * _______________________________________________________________________________
    */
-
+  const cookie = new Cookies();
+  const type = cookie.get('type');
   const { push } = useRouter();
 
   /**
@@ -46,7 +48,13 @@ const PreCheckoutButton = ({ inputs }: PreCheckoutNextButtonProps) => {
       className='checkoutButton'
       variant='checkout'
       position='fixed'
-      onClick={() => push(inputs?.link)}
+      onClick={() => {
+        if (type === 'fastfit') {
+          push('/checkout/?discount=dHJ1ZQ==');
+        } else {
+          push('/checkout');
+        }
+      }}
       style={{ zIndex: '10' }}
     >
       <Typography>{inputs?.text}</Typography>

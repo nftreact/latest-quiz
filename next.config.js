@@ -1,28 +1,29 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  output: 'standalone',
+  trailingSlash: true,
   reactStrictMode: false,
   transpilePackages: ['lodash-es'],
+  reactStrictMode: true,
   unstable_allowDynamic: ['/lib/utilities.js', '/node_modules/function-bind/**'],
   webpack: (config) => {
     config.ignoreWarnings = [
       { module: /node_modules\/node-fetch\/lib\/index\.js/ },
       { file: /node_modules\/node-fetch\/lib\/index\.js/ },
-    ]
+    ];
 
-    return config
+    return config;
   },
   compiler: {
     styledComponents: true,
   },
 
   images: {
-    domains: ['matchadiet.com', 'blog.matchadiet.com'],
+    domains: ['matchadiet.com', 'blog.matchadiet.com', 'fasteasy.io', 'web.appscdn.io.', 'matchafit.worldfiles'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'matchadiet.com',
+        hostname: 'web.appscdn.io',
       },
       {
         protocol: 'https',
@@ -30,7 +31,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'matchafit.world',
+        hostname: '**matchadiet.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**fasteasy.io.io',
       },
       {
         protocol: 'https',
@@ -72,8 +77,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**nikaat.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**matchafit.world',
+      },
     ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

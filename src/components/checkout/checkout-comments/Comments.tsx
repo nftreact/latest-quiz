@@ -1,9 +1,11 @@
 'use client';
 
 import { CommentsItem } from '@/types/checkout';
-import CommentCard from './CommentCard';
 import styled from 'styled-components';
 import { AppFlex, Typography } from '@/primitives';
+import dynamic from 'next/dynamic';
+import LoadingSkeletonSlider from '../checkout-slider/LoadingSkeletonSlider';
+import CommentCard from './CommentCard';
 
 /**
  * props
@@ -42,7 +44,7 @@ const Comments = ({ comments, sectionTitle }: CommentsProps) => {
       align='center'
       gap={'40px'}
     >
-      <Typography className='title' tag='h1' fontWeight={800}>
+      <Typography className='title' tag='h1' fontWeight={600}>
         {sectionTitle}
       </Typography>
       <LayoutCard>
@@ -74,6 +76,7 @@ export default Comments;
  */
 
 const Root = styled(AppFlex)`
+overflow: hidden;
   .title {
     font-size: 24px;
 
@@ -85,9 +88,9 @@ const Root = styled(AppFlex)`
 
 const LayoutCard = styled.div`
   width: 100%;
+
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(1, 1fr));
-  /* overflow: scroll; */
   gap: 10px;
 
   @media (min-width: 768px) {

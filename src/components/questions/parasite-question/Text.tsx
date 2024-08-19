@@ -44,7 +44,6 @@ const Text = forwardRef((props: Props) => {
    */
   return (
     <Root
-
       {...rest}
       iscenter={String(isCenter)}
       opacity={opacity}

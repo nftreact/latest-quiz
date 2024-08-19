@@ -1,8 +1,10 @@
-export const thisLocale: 'fa_IR' | 'en_US' = 'fa_IR';
+import { menu } from './menu';
+
+export const thisLocale: 'en_US' | 'fa_IR' | 'it_US' = 'fa_IR';
 export const thisProject = 'matcha';
+export const thisLanguage: 'en' | 'ir' | 'it' = 'ir';
 
 export const configcontrol = {
-  
   mint: {
     fa_IR: {
       menuItems: [
@@ -40,7 +42,7 @@ export const configcontrol = {
         },
         {
           name: 'پشتیبانی',
-          path: 'https://ai.matchadiet.com/fa/?type=chatsup',
+          path: 'https://matchadiet.com/contact-us',
         },
         {
           name: 'درباره ما',
@@ -124,18 +126,21 @@ export const configcontrol = {
     },
   },
 };
-export const menuItems = configcontrol[thisProject][thisLocale]['menuItems'];
-export const types = configcontrol[thisProject][thisLocale]['types'];
-export const defaultType = configcontrol[thisProject][thisLocale]['types'][0];
+
+const menuData = menu.filter((item) => item.language === thisLanguage)[0].items;
 
 export const projects = {
+  /**
+   * fa_IR version
+   * _______________________________________________________________________________
+   */
+
   matcha: {
     fa_IR: {
+      BASE_PATH: '/',
       SERVER: 'https://matchadiet.com/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://matchadiet.com',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'fa_IR',
       SITE_TITLE: 'ماچا',
@@ -151,14 +156,94 @@ export const projects = {
       CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
       AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
       DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: 'صفحه مورد نظر یافت نشد',
       NOT_FOUND_DESCRIPTION: 'صفحه مورد نظر یافت نشد. شما می توانید با فشردن دکمه زیر به صفحه اصلی بازگردید.',
       NOT_FOUND_BUTTON_TEXT: 'بازگشت به صفحه اصلی',
       GOOGLE_ANALYTICS_ID: 'AW-958897314',
+      LANDING: 'https://matchadiet.com/',
+      ENAMAD:
+        '<a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=330046&amp;Code=ksy6HJkjtqimw7smqJ9r"><img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=330046&amp;Code=ksy6HJkjtqimw7smqJ9r" alt="" style="cursor:pointer" id="ksy6HJkjtqimw7smqJ9r"></a>',
+      HATJAR_SCRIPT_FUNCTION: '',
+      PAGE_TITLE: '',
+      PAGE_DESCRIPTION: '',
+      PAYPAL_CLIENT_ID: '',
+      PAYPAL_BASE_URL: '',
+    },
+    /**
+     * en_Us version
+     * _______________________________________________________________________________
+     */
+    en_US: {
+      BASE_PATH: '/en',
+      SERVER: 'https://matchafit.world/process/v2',
+      PRE_CONNECT_SERVER_URL: 'https://matchafit.world',
+      PROJECT: thisProject.toUpperCase(),
+      FIRST_AID: 'start',
+      DEFAULT_LOCALE: 'en_US',
+      SITE_TITLE: 'ماچا',
+      PAGE_TITLE: 'Matcha | Your AI Coach. The Future of Fitness is Here',
+      PAGE_DESCRIPTION: `Your AI Coach. The Future of Fitness is Here`,
+      META_DESCRIPTION: `Get fit with cutting-edge AI. The future of fitness is here - start your Matcha journey today!`,
+      LOGO_URL: 'https://matchafit.world/files/icon/logo.png',
+      FAVICON_URL: 'https://matchafit.world/files/icon/favicon.ico',
+      PRIMARY_COLOR: '#e76d85',
+      HOVER_COLOR: '#e54c6a',
+      BUTTON_TEXT_COLOR: 'white',
+      PRIMARY_TEXT_COLOR: '#090a0a',
+      SECONDARY_TEXT_COLOR: '#FFFFFF',
+      GLOBAL_ERROR: 'بنظر می رسد مشکلی وجود دارد. لطفا مجددا تلاش کرده یا با مدیر سایت تماس بگیرید',
+      CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
+      AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
+      DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
+      MENU_ITEMS: menuData,
+      NOT_FOUND_TITLE: `Oops! We couldn't find that page.`,
+      NOT_FOUND_DESCRIPTION: `Oops! We couldn't find that page. Click the button below to go back to the home page.`,
+      NOT_FOUND_BUTTON_TEXT: `Back to Home`,
+      GOOGLE_ANALYTICS_ID: 'AW-11323479475',
       PAYPAL_CLIENT_ID: 'AffC5rYyOSiH3QnfYZ8WrpRWN5qSRn2lV_I8bAvz-WZxsTrR2iIc-RzED35I8dKRNrLaENb-qUVKSbYZ',
-      PAYPAL_BASE_URL: 'https://cocofit.yoga/gateway/paypal',
+      PAYPAL_BASE_URL: 'https://matchafit.world/gateway/paypal',
       PAYPAL_MERCHENT_ID: '6565XYEQSSK9W',
+      LANDING: 'https://matchafit.world/en',
+      ENAMAD:
+        '<a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=330046&amp;Code=ksy6HJkjtqimw7smqJ9r"><img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=330046&amp;Code=ksy6HJkjtqimw7smqJ9r" alt="" style="cursor:pointer" id="ksy6HJkjtqimw7smqJ9r"></a>',
+      HATJAR_SCRIPT_FUNCTION: '',
+    },
+    /**
+     * it version
+     * _______________________________________________________________________________
+     */
+    it_US: {
+      BASE_PATH: '/it',
+      SERVER: 'https://matchafit.world/process/v2',
+      PRE_CONNECT_SERVER_URL: 'https://matchafit.world',
+      PROJECT: thisProject.toUpperCase(),
+      FIRST_AID: 'start',
+      DEFAULT_LOCALE: 'en_US',
+      SITE_TITLE: 'ماچا',
+      PAGE_TITLE: 'Matcha | Your AI Coach. The Future of Fitness is Here',
+      PAGE_DESCRIPTION: `Your AI Coach. The Future of Fitness is Here`,
+      META_DESCRIPTION: `Get fit with cutting-edge AI. The future of fitness is here - start your Matcha journey today!`,
+      LOGO_URL: 'https://matchafit.world/files/icon/logo.png',
+      FAVICON_URL: 'https://matchafit.world/files/icon/favicon.ico',
+      PRIMARY_COLOR: '#e76d85',
+      HOVER_COLOR: '#e54c6a',
+      BUTTON_TEXT_COLOR: 'white',
+      PRIMARY_TEXT_COLOR: '#090a0a',
+      SECONDARY_TEXT_COLOR: '#FFFFFF',
+      GLOBAL_ERROR: 'بنظر می رسد مشکلی وجود دارد. لطفا مجددا تلاش کرده یا با مدیر سایت تماس بگیرید',
+      CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
+      AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
+      DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
+      MENU_ITEMS: menuData,
+      NOT_FOUND_TITLE: `Ops! Non abbiamo trovato questa pagina`,
+      NOT_FOUND_DESCRIPTION: `Ops! Non abbiamo trovato questa pagina. Clicca sul pulsante sottostante per tornare alla home page.`,
+      NOT_FOUND_BUTTON_TEXT: `Indietro alla Home`,
+      GOOGLE_ANALYTICS_ID: 'AW-11323479475',
+      PAYPAL_CLIENT_ID: 'AffC5rYyOSiH3QnfYZ8WrpRWN5qSRn2lV_I8bAvz-WZxsTrR2iIc-RzED35I8dKRNrLaENb-qUVKSbYZ',
+      PAYPAL_BASE_URL: 'https://matchafit.world/gateway/paypal',
+      PAYPAL_MERCHENT_ID: '6565XYEQSSK9W',
+      LANDING: 'https://matchafit.world/it',
       ENAMAD:
         '<a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=330046&amp;Code=ksy6HJkjtqimw7smqJ9r"><img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=330046&amp;Code=ksy6HJkjtqimw7smqJ9r" alt="" style="cursor:pointer" id="ksy6HJkjtqimw7smqJ9r"></a>',
       HATJAR_SCRIPT_FUNCTION: '',
@@ -166,11 +251,10 @@ export const projects = {
   },
   mint: {
     fa_IR: {
+      BASE_PATH: '/en',
       SERVER: 'https://mintdoctor.ir/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://mintdoctor.ir',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'fa_IR',
       SITE_TITLE: 'مینت',
@@ -187,7 +271,7 @@ export const projects = {
       CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
       AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
       DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: 'صفحه مورد نظر یافت نشد',
       NOT_FOUND_DESCRIPTION: 'صفحه مورد نظر یافت نشد. شما می توانید با فشردن دکمه زیر به صفحه اصلی بازگردید.',
       NOT_FOUND_BUTTON_TEXT: 'بازگشت به صفحه اصلی',
@@ -197,11 +281,10 @@ export const projects = {
   },
   lavender: {
     fa_IR: {
+      BASE_PATH: '/en',
       SERVER: 'https://lavenderdiet.com/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://lavenderdiet.com',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'fa_IR',
       SITE_TITLE: 'لاوندر',
@@ -217,7 +300,7 @@ export const projects = {
       CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
       AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
       DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: 'صفحه مورد نظر یافت نشد',
       NOT_FOUND_DESCRIPTION: 'صفحه مورد نظر یافت نشد. شما می توانید با فشردن دکمه زیر به صفحه اصلی بازگردید.',
       NOT_FOUND_BUTTON_TEXT: 'بازگشت به صفحه اصلی',
@@ -227,11 +310,10 @@ export const projects = {
   },
   ugo: {
     fa_IR: {
+      BASE_PATH: '/en',
       SERVER: 'https://ugo-global-immigration-center.com/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://ugo-global-immigration-center.com',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'fa_IR',
       SITE_TITLE: 'یوگو',
@@ -247,7 +329,7 @@ export const projects = {
       CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
       AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
       DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: 'صفحه مورد نظر یافت نشد',
       NOT_FOUND_DESCRIPTION: 'صفحه مورد نظر یافت نشد. شما می توانید با فشردن دکمه زیر به صفحه اصلی بازگردید.',
       NOT_FOUND_BUTTON_TEXT: 'بازگشت به صفحه اصلی',
@@ -257,11 +339,10 @@ export const projects = {
   },
   yogini: {
     fa_IR: {
+      BASE_PATH: '/en',
       SERVER: 'https://online-yogini.com/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://online-yogini.com',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'fa_IR',
       SITE_TITLE: 'یوگینی | یادگیری یوگا و تقویت جسم و روح در کمترین زمان ممکن',
@@ -278,7 +359,7 @@ export const projects = {
       CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
       AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
       DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: 'صفحه مورد نظر یافت نشد',
       NOT_FOUND_DESCRIPTION: 'صفحه مورد نظر یافت نشد. شما می توانید با فشردن دکمه زیر به صفحه اصلی بازگردید.',
       NOT_FOUND_BUTTON_TEXT: 'بازگشت به صفحه اصلی',
@@ -286,11 +367,10 @@ export const projects = {
       HATJAR_SCRIPT_FUNCTION: '',
     },
     en_US: {
+      BASE_PATH: '/en',
       SERVER: 'https://yogini-class.com/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://yogini-class.com',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'en_US',
       SITE_TITLE: 'Yogini: Learn Yoga Professionally',
@@ -307,7 +387,7 @@ export const projects = {
       CONNECTION_ERROR: 'Please make sure you have a internet connection',
       AUTHORIZATION_ERROR: "You don't have the permission to access this page",
       DEFAULT_INPUT_ERROR: 'Attention please!',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: '404 | Not Found',
       NOT_FOUND_DESCRIPTION: 'The page you are looking for is not here',
       NOT_FOUND_BUTTON_TEXT: 'Return to Home',
@@ -317,11 +397,10 @@ export const projects = {
   },
   cocoyoga: {
     fa_IR: {
+      BASE_PATH: '/en',
       SERVER: 'https://cocofit.yoga/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://cocofit.yoga',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'fa_IR',
       SITE_TITLE: 'یوگینی | یادگیری یوگا و تقویت جسم و روح در کمترین زمان ممکن',
@@ -338,19 +417,20 @@ export const projects = {
       CONNECTION_ERROR: 'لطفا از اتصال به اینترنت مطمئن شوید',
       AUTHORIZATION_ERROR: 'شما اجازه دسترسی به این بخش را ندارید',
       DEFAULT_INPUT_ERROR: 'لطفا دقت کنید',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: 'صفحه مورد نظر یافت نشد',
       NOT_FOUND_DESCRIPTION: 'صفحه مورد نظر یافت نشد. شما می توانید با فشردن دکمه زیر به صفحه اصلی بازگردید.',
       NOT_FOUND_BUTTON_TEXT: 'بازگشت به صفحه اصلی',
       GOOGLE_ANALYTICS_ID: '',
       HATJAR_SCRIPT_FUNCTION: '',
+      PAGE_TITLE: '',
+      PAGE_DESCRIPTION: '',
     },
     en_US: {
+      BASE_PATH: '/en',
       SERVER: 'https://cocofit.yoga/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://cocofit.yoga',
       PROJECT: thisProject.toUpperCase(),
-      DEFAULT_TYPE: defaultType,
-      TYPES: JSON.stringify(types),
       FIRST_AID: 'start',
       DEFAULT_LOCALE: 'en_US',
       SITE_TITLE: 'CocoFit: Learn Yoga Professionally',
@@ -367,7 +447,7 @@ export const projects = {
       CONNECTION_ERROR: 'Please make sure you have a internet connection',
       AUTHORIZATION_ERROR: "You don't have the permission to access this page",
       DEFAULT_INPUT_ERROR: 'Attention please!',
-      MENU_ITEMS: JSON.stringify(menuItems),
+      MENU_ITEMS: menuData,
       NOT_FOUND_TITLE: '404 | Not Found',
       NOT_FOUND_DESCRIPTION: 'The page you are looking for is not here',
       NOT_FOUND_BUTTON_TEXT: 'Return to Home',
@@ -376,6 +456,8 @@ export const projects = {
       PAYPAL_BASE_URL: 'https://cocofit.yoga/gateway/paypal',
       PAYPAL_MERCHENT_ID: '6565XYEQSSK9W',
       ENAMAD: '',
+      PAGE_TITLE: '',
+      PAGE_DESCRIPTION: '',
       HATJAR_SCRIPT_FUNCTION: `(function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:3662280,hjsv:6};

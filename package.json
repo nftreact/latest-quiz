@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8090",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,7 +14,6 @@
     "@persian-tools/persian-tools": "3.5.2",
     "@tanstack/react-query": "4.19.1",
     "axios": "1.6.5",
-    "moment-jalaali": "^0.10.0",
     "next": "14.0.4",
     "next-absolute-url": "1.2.2",
     "rc-slider": "10.5.0",
@@ -26,9 +25,8 @@
     "react-icon": "1.0.0",
     "react-icons": "5.0.1",
     "react-loading": "2.0.3",
-    "react-minimal-modal": "^2.0.2",
+    "react-minimal-modal": "2.1.0",
     "react-modern-drawer": "1.2.2",
-    "react-spring-bottom-sheet": "3.5.0-alpha.0",
     "react-multi-date-picker": "4.4.1",
     "react-player": "2.14.1",
     "react-toastify": "10.0.4",
@@ -41,14 +39,16 @@
   },
   "devDependencies": {
     "@types/gtag.js": "0.0.19",
-    "@types/moment-jalaali": "^0.7.9",
     "@types/node": "20",
     "@types/react": "18",
     "@types/react-dom": "18",
     "@types/styled-components": "5.1.34",
+    "autoprefixer": "^10.4.19",
     "encoding": "0.1.13",
     "eslint": "8",
     "eslint-config-next": "14.0.4",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
     "typescript": "5"
   }
 }

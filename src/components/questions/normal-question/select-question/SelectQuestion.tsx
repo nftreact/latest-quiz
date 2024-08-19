@@ -10,7 +10,7 @@ import { Button, Typography } from '@/primitives';
 import HintCardSelect from './HintCardSelect';
 import { getCookies } from '@/utils/insdex';
 import { isAnyValueNotEmpty } from '@/utils/question/isAnyValueNotEmpty';
-import { THISPROJECT } from '@/constants/projects';
+import { THISPROJECT, thisLanguage, thisLocale } from '@/constants/projects';
 
 /**
  * props
@@ -37,6 +37,7 @@ const SelectQuestion = ({ questionType, answers, hasborderImage }: Props) => {
   const { dispatch } = useQuestionContext();
   const { type } = getCookies();
   const isShowHintCArd = isAnyValueNotEmpty(hintCard as any);
+  const language = thisLanguage;
 
   /**
    * useEffect
@@ -115,7 +116,9 @@ const SelectQuestion = ({ questionType, answers, hasborderImage }: Props) => {
       ) : (
         questionType !== 'singleSelect' && (
           <Button variant='question' onClick={handleMultiSelectItem} position='fixed'>
-            <Typography fontWeight={700}>بعدی</Typography>
+            <Typography fontWeight={500}>
+              {language === 'en' ? 'Next' : language === 'it' ? 'Continua' : 'بعدی'}
+            </Typography>
           </Button>
         )
       )}

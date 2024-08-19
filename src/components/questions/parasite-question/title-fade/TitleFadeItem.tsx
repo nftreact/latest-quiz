@@ -12,9 +12,10 @@ import styled from 'styled-components';
 type Props = {
   text: string;
   delay: number;
+  textColor: string;
 };
 
-const TitleFadeItem = ({ delay, text }: Props) => {
+const TitleFadeItem = ({ delay, text, textColor }: Props) => {
   /**
    * const and variables
    * _______________________________________________________________________________
@@ -58,7 +59,7 @@ const TitleFadeItem = ({ delay, text }: Props) => {
         textalign='center'
         variant='h3'
         tag='p'
-        textcolor={THISPROJECT.DEFAULT_LOCALE === 'fa_IR' ? '#fff' : '#000'}
+        textcolor={THISPROJECT.DEFAULT_LOCALE === 'fa_IR' ? '#fff' : textColor}
         className={thisClass}
         style={{ display: shown ? 'block' : 'none' }}
       >

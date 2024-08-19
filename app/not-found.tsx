@@ -48,7 +48,7 @@ const Custom404Page = ({}: Props) => {
       <Typography variant='h2' tag='h1'>
         {THISPROJECT.NOT_FOUND_TITLE}
       </Typography>
-      <Typography variant='subtitle1' tag='p'>
+      <Typography textalign='center' variant='subtitle1' tag='p'>
         {THISPROJECT.NOT_FOUND_DESCRIPTION}
       </Typography>
       <LinkStyled href={`/question/aid=${THISPROJECT.FIRST_AID}&type=${type}`} passHref>
@@ -81,4 +81,6 @@ const LinkStyled = styled(Link)`
   width: 100%;
   justify-content: center;
   max-width: 600px;
+
+  text-align: center;
 `;

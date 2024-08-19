@@ -9,14 +9,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
 import { colors } from '@/theme';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MainImage from './MainImage';
 import dynamic from 'next/dynamic';
-import { useParams, useRouter } from 'next/navigation';
+import { Autoplay } from 'swiper/modules';
 
 const Modal = dynamic(() => import('react-minimal-modal').then((item) => item.default));
+
 /**
  * props
  * _______________________________________________________________________________
@@ -31,13 +31,8 @@ const CheckoutSlider = ({ horizontalComments }: Props) => {
    * const and variables
    * _______________________________________________________________________________
    */
-  const [isOpen, setIsOpen] = useState(window.location.hash === '#modal' ? true : false);
+  const [isOpen, setIsOpen] = useState(false);
   const [currentMainImage, setCurrentMainImage] = useState('');
-  const href = window.location.href;
-  const params = useParams();
-  const { push } = useRouter();
-  const currentURL = window.location.href;
-  const urlWithoutHash = currentURL.split('#')[0];
 
   /**
    * useEffect
@@ -53,13 +48,7 @@ const CheckoutSlider = ({ horizontalComments }: Props) => {
     setCurrentMainImage(value);
   };
 
-  useEffect(() => {
-    if (window.location.hash) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  }, [params]);
+  if (horizontalComments.items.length < 1) return;
 
   /**
    * template
@@ -67,18 +56,21 @@ const CheckoutSlider = ({ horizontalComments }: Props) => {
    */
   return (
     <Root direction='column' gap={'30px'}>
-      <Typography fontWeight={700} textalign='center' className='title'>
-        {horizontalComments?.sectionTitle}
-      </Typography>
+      {horizontalComments?.sectionTitle && (
+        <Typography fontWeight={600} textalign='center' className='title'>
+          {horizontalComments?.sectionTitle}
+        </Typography>
+      )}
       <Swiper
-        effect='fade'
-        fadeEffect={{
-          crossFade: true,
+        modules={[Autoplay]}
+        centeredSlides={true}
+        grabCursor={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
         }}
-        modules={[Navigation]}
         spaceBetween={20}
-        slidesPerView={1}
-        navigation={true}
+        slidesPerView={'auto'}
         breakpoints={{
           600: {
             slidesPerView: 'auto',
@@ -91,7 +83,7 @@ const CheckoutSlider = ({ horizontalComments }: Props) => {
               <CardSlider
                 card={item}
                 onClick={() => {
-                  push(`${href}#modal`);
+                  setIsOpen(true);
                   handleCurrentMainImage(item.mainImage);
                 }}
               />
@@ -99,12 +91,7 @@ const CheckoutSlider = ({ horizontalComments }: Props) => {
           );
         })}
       </Swiper>
-      <Modal
-        open={isOpen}
-        onClose={() => {
-          push(urlWithoutHash);
-        }}
-      >
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
         <MainImage currentMainImage={currentMainImage} />
       </Modal>
     </Root>
@@ -119,7 +106,7 @@ export default CheckoutSlider;
  */
 
 const Root = styled(AppFlex)`
-  padding: 24px 16px;
+  padding: 16px;
   max-width: 1200px;
   position: relative;
   margin: auto;

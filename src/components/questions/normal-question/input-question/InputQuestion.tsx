@@ -304,7 +304,9 @@ const InputQuestion = ({ answer, questionType }: Props) => {
               locale={THISPROJECT.DEFAULT_LOCALE}
             >{`${lable} ( ${unit} )`}</Lable> */}
             <InputContainer errortext={textError} className='InputContainer' id='input-container'>
-              <p style={{ textWrap: 'nowrap', minWidth: '90px' }}>{unit}</p>
+              <p style={{ textWrap: 'nowrap', minWidth: '90px', position: 'absolute', right: 10, zIndex: 9 }}>
+                {unit}
+              </p>
               <input
                 {...register(renderElement(inputRegister) as inputRegistertype, {
                   onChange(event) {
@@ -420,7 +422,9 @@ const InputContainer = styled.div<{ errortext: string | undefined }>`
   border: ${({ errortext }) => (errortext ? `1.5px solid red` : '2px solid #02857A')};
   height: 50px;
   border-radius: 4px;
-  padding-inline: 8px;
+  position: relative;
+  padding-inline: 5px;
+
   cursor: pointer;
 
   input {
@@ -428,6 +432,20 @@ const InputContainer = styled.div<{ errortext: string | undefined }>`
     height: 100%;
     border: none;
     font-size: 14px;
+    padding-inline: 100px;
+    background-color: transparent;
+    z-index: 10;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      z-index: 1;
+      -webkit-background-clip: text;
+      transition: background-color 5000s ease-in-out 0s #fff;
+      box-shadow: inset 0 100px 100px 20px #fff;
+    }
+
     color: ${({ errortext }) => (errortext ? `red` : '#000')};
     width: -webkit-fill-available;
   }

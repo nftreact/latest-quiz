@@ -1,9 +1,11 @@
 'use client';
 
+import { thisLanguage } from '@/constants/projects';
 import { AppFlex, Button } from '@/primitives';
 import Typography from '@/primitives/typography/Typography';
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+  const language = thisLanguage;
   return (
     <AppFlex
       direction='column'
@@ -13,10 +15,14 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
       style={{ margin: 'auto', height: '100vh', paddingInline: '16px' }}
     >
       <Typography>
-       متاسفانه مشکلی پیش آمده لطفا دوباره امتحان نمایید
-        </Typography>
+        {language === 'en'
+          ? 'Unfortunately, a problem occurred. Please try again'
+          : language === 'it'
+          ? 'Purtroppo si è verificato un problema. Riprova'
+          : 'متاسفانه مشکلی پیش آمده لطفا دوباره امتحان نمایید'}
+      </Typography>
       <Button variant='question' onClick={() => reset()}>
-       دوباره امتحان کنید
+        {language === 'en' ? 'Try again' : language === 'it' ? 'Riprova' : 'دوباره امتحان کنید'}
       </Button>
     </AppFlex>
   );

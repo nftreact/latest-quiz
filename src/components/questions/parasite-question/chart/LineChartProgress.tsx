@@ -15,6 +15,7 @@ type Props = {
     status: 'up' | 'down';
     current: string;
     goal: string;
+    unit: string;
   };
 };
 
@@ -54,7 +55,7 @@ const LineChartProgress = ({ inputs }: Props) => {
 
     const timeoutId = setTimeout(() => {
       setIsShowLable(true); // Update state to show the label
-    }, 3300);
+    }, 4000);
 
     const currentLableTimeout = setTimeout(() => {
       setCurrentValue({
@@ -64,7 +65,7 @@ const LineChartProgress = ({ inputs }: Props) => {
         cy: points[0].y,
         date: currentStrValue[0],
       });
-    }, 3200);
+    }, 3900);
 
     const goalLableTimeout = setTimeout(() => {
       setGoalValue({
@@ -74,7 +75,7 @@ const LineChartProgress = ({ inputs }: Props) => {
         cy: points[5].y,
         date: goalStrValue[0],
       });
-    }, 3200);
+    }, 3900);
 
     return () => {
       clearTimeout(timeoutId);
@@ -345,9 +346,9 @@ const LineChartProgress = ({ inputs }: Props) => {
       >
         <AppFlex className='container' direction='column' align='center' gap={'5px'}>
           <p>{currentValue.date}</p>
-          <AppFlex gap={'4px'}>
-            <p>{currentValue.unit}</p>
+          <AppFlex gap={'4px'} align='center'>
             <p>{currentValue.value}</p>
+            <p>{inputs.unit}</p>
           </AppFlex>
           <IoMdArrowDropdown className='lable' fill='#F35F6E' />
         </AppFlex>
@@ -356,9 +357,9 @@ const LineChartProgress = ({ inputs }: Props) => {
       <LableCharts isshowlable={String(isShowLable)} name='goal' goalValue={goalValue} growth={status}>
         <AppFlex className='container' direction='column' align='center' gap={'5px'}>
           <p>{goalValue.date}</p>
-          <AppFlex gap={'4px'}>
-            <p>{goalValue.unit}</p>
+          <AppFlex gap={'4px'} align='center'>
             <p>{goalValue.value}</p>
+            <p>{inputs.unit}</p>
           </AppFlex>
           <IoMdArrowDropdown className='lable' fill='#139C90' />
         </AppFlex>
@@ -392,8 +393,8 @@ const LineChartProgress = ({ inputs }: Props) => {
           dataKey='pv'
           fill='url(#colorUv)'
           dot={(props) => CustomizedDot(props)}
-          animationDuration={2000}
-          animationBegin={300}
+          animationDuration={3000}
+          animationBegin={500}
         />
       </LineChartStyled>
     </Root>
@@ -421,7 +422,7 @@ const LineChartStyled = styled(AreaChart)`
   &.recharts-surface {
     height: fit-content !important;
     position: relative !important;
-    width: 100%;
+    width: 100% !important;
   }
 
   & .recharts-cartesian-grid {
@@ -520,11 +521,12 @@ const LableCharts = styled.div<{
 
   .lable {
     position: absolute;
-    top: 41px;
+    /* top: 41px; */
     left: 27%;
+    bottom: -16px;
 
     @media (min-width: 450px) {
-      top: 39px;
+      bottom: -16px;
     }
   }
 

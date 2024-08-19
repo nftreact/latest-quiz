@@ -66,8 +66,8 @@ export interface PreCheckoutHighlight {
 }
 
 export interface PreCheckoutResult {
-  token: string | undefined;
-  code: string | undefined;
+  token?: string | undefined;
+  code?: string | undefined;
   header: PreCheckoutHeader;
   button: PreCheckoutButton;
   summery: PreCheckoutSummery;

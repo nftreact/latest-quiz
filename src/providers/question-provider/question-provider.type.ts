@@ -11,6 +11,9 @@ export interface Questions {
   type: string;
   height_cm: string;
   calendar: string;
+  email: string;
+  allQuestions: string | number;
+  currentQuestion: string | number;
 }
 
 // Define the actions that can be dispatched
@@ -25,4 +28,5 @@ export interface QuestionContextProps {
 export type QuestionProviderProps = {
   children: ReactNode;
   bgColor?: string;
+  questions: any;
 };

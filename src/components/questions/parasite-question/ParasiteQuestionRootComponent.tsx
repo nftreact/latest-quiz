@@ -2,7 +2,7 @@
 
 import { IconElementInputs, QUESTION } from '@/types/questions';
 import Text from './Text';
-import { Button, Typography } from '@/primitives';
+import { AppFlex, Button, Typography } from '@/primitives';
 import { useQuestionContext } from '@/providers';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
@@ -11,6 +11,12 @@ import Cookies from 'universal-cookie';
 import { useEffect, useId, useState } from 'react';
 import MultiLinearProgress from './liner-box/MultiLinearProgress';
 import { useRandomValue, useRandomValueMultiLoadingProgress } from '@/hooks';
+import { CheckoutSlider } from '@/components/checkout';
+import { getTextSize } from '@/utils/question/getTextSize';
+import SummaryQuestionRoot from './summary-question/SummaryQuestionRoot';
+import Result from '@/components/pre-checkout/result/Result';
+import ParasitChart from './chart/ParasitChart';
+import ParasitSingleChart from './chart/ParasitSingleChart';
 
 const ParasiteImage = dynamic(() => import('./ParasiteImage'));
 const ParasiteIcon = dynamic(() => import('./ParasiteIcon'));
@@ -21,7 +27,6 @@ const TitleFade = dynamic(() => import('./title-fade/TitleFade'));
 const LineChartProgressGoalWeight = dynamic(() => import('../parasite-question/chart/LineChartProgressGoalWeight'), {
   ssr: false,
 });
-
 
 const LineChartProgress = dynamic(() => import('../parasite-question/chart/LineChartProgress'), {
   ssr: false,
@@ -47,6 +52,10 @@ const ParasiteQuestionRootComponent = ({ question }: Props) => {
   const [translate, setTranslate] = useState('40px');
   const { firstStep, secondStep, thirdStep } = useRandomValue();
   const { first, forth, second, third } = useRandomValueMultiLoadingProgress();
+
+  useEffect(() => {
+    localStorage.removeItem('timer');
+  }, []);
 
   /**
    * useEffect
@@ -116,10 +125,18 @@ const ParasiteQuestionRootComponent = ({ question }: Props) => {
         );
       case 'transitionText':
         return <TransitionText key={'transitionText'} inputs={element.inputs} />;
-      case 'chart':
-        return <LineChartProgress key={index} inputs={element?.inputs} />;
       case 'singleChart':
-        return <LineChartProgressGoalWeight key={index} inputs={element?.inputs} />;
+        if (type == 'fastfit') {
+          return <ParasitSingleChart key={index} inputs={element?.inputs} />;
+        } else {
+          return <LineChartProgressGoalWeight key={index} inputs={element?.inputs} />;
+        }
+      case 'chart':
+        if (type == 'fastfit') {
+          return <ParasitChart key={'chart'} inputs={element?.inputs} />;
+        } else {
+          return <LineChartProgress key={index} inputs={element?.inputs} />;
+        }
       case 'titleFade':
         return (
           <TitleFade
@@ -128,8 +145,11 @@ const ParasiteQuestionRootComponent = ({ question }: Props) => {
             thisAid={question.parasite.aid}
             isResult={question.isResult}
             nextPage={question.nextPage}
+            textColor={question.parasite.textColor}
           />
         );
+      case 'summery':
+        return <SummaryQuestionRoot key={'sammery'} data={element.inputs} aid={question.parasite.aid} />;
       case 'loading':
         return (
           <ParasiteLiner
@@ -138,7 +158,7 @@ const ParasiteQuestionRootComponent = ({ question }: Props) => {
             thirdStep={thirdStep}
             key={'loading'}
             inputs={element.inputs as any}
-            thisAid={question.parasite.aid}
+            thisAid={question.answers[0].aid}
           />
         );
       case 'multiLoading':
@@ -151,7 +171,14 @@ const ParasiteQuestionRootComponent = ({ question }: Props) => {
             secondtStep={second}
             thirdStep={third}
             forthStep={forth}
+            hasDisableBtn
           />
+        );
+      case 'comments':
+        return (
+          <CommentsWrapper style={{ width: '100%' }}>
+            <CheckoutSlider horizontalComments={element.inputs} />
+          </CommentsWrapper>
         );
       case 'image':
         return <ParasiteImage key={'image'} inputs={element.inputs} />;
@@ -191,8 +218,21 @@ export default ParasiteQuestionRootComponent;
 const Root = styled.section<{ opacity: number; translate: string }>`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   opacity: ${(props) => props.opacity};
   margin-bottom: ${(props) => props.translate};
   transition: opacity 1.5s, margin 1.5s;
+  padding-top: 20px;
+`;
+
+const CommentsWrapper = styled.section`
+  height: min-content;
+  /* bottom: 0px;
+  position: relative;
+  margin-top: -60px;
+
+  @media (min-width: 850px) {
+    position: absolute;
+    margin-top: 0;
+  } */
 `;

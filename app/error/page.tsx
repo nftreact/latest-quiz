@@ -6,7 +6,9 @@ import Image from 'next/image';
 import { Button, Typography } from '@/primitives';
 import Link from 'next/link';
 import Error from '../../public/images/error.jpg';
-import { menuItems } from '@/constants/projects';
+import { THISPROJECT, thisLanguage } from '@/constants/projects';
+import { useEffect } from 'react';
+import Cookies from 'universal-cookie';
 
 /**
  * props
@@ -19,12 +21,61 @@ const Custom500page = ({}: Props) => {
    * const and variables
    * _______________________________________________________________________________
    */
-  const support = menuItems[1].path;
 
+  const coockies = new Cookies();
+
+  const language = thisLanguage;
+
+  const fa_Data = {
+    support: {
+      supportBtn: 'پشتیانی',
+      link: 'https://matchadiet.com/contact-us',
+    },
+    homeBtn: {
+      homeBtn: 'صفحه اصلی',
+      link: THISPROJECT.LANDING,
+    },
+    hintText: 'متاسفانه مشکلی پیش آمده لطفا دوباره امتحان نمایید',
+    title: ' Internal Server Error (500)',
+  };
+
+  const en_data = {
+    support: {
+      supportBtn: 'Support',
+      link: 'https://api.whatsapp.com/message/WYNW6GK4O5PLJ1?autoload=1&app_absent=0',
+    },
+    homeBtn: {
+      homeBtn: 'Back to Home',
+      link: THISPROJECT.LANDING,
+    },
+    hintText: 'Unfortunately, something went wrong. Please try again.',
+    title: ' Internal Server Error (500)',
+  };
+
+  const it_data = {
+    support: {
+      supportBtn: 'Supporto',
+      link: 'https://api.whatsapp.com/message/WYNW6GK4O5PLJ1?autoload=1&app_absent=0',
+    },
+    homeBtn: {
+      homeBtn: 'Indietro alla Home',
+      link: THISPROJECT.LANDING,
+    },
+    hintText: 'Mi dispiace, si è verificato un problema. Riprova.',
+    title: ' Internal Server Error (500)',
+  };
+
+  const data = language === 'ir' ? fa_Data : language === 'en' ? en_data : it_data;
   /**
    * useEffect
    * _______________________________________________________________________________
    */
+
+  useEffect(() => {
+    coockies.set('noRedirect', 'false', {
+      path: '/',
+    });
+  }, []);
 
   /**
    * hooks and methods
@@ -49,20 +100,20 @@ const Custom500page = ({}: Props) => {
           Internal Server Error (500)
         </Typography>
         <Typography textalign='center' variant='body1' tag='p'>
-          متاسفانه مشکلی پیش آمده لطفا دوباره امتحان نمایید
+          {data.hintText}
         </Typography>
         <ContentWrapper>
-          <Button style={{ minWidth: '155px' }} variant='question'>
-            <Link href={support}>
+          <Button style={{ minWidth: '170px' }} variant='question'>
+            <Link href={'https://api.whatsapp.com/message/WYNW6GK4O5PLJ1?autoload=1&app_absent=0'}>
               <Typography textcolor='#fff' variant='body1'>
-                پشتیانی
+                {data.support.supportBtn}
               </Typography>
             </Link>
           </Button>
-          <Button style={{ minWidth: '155px' }} variant='question'>
-            <Link href={`https://matchadiet.com`}>
+          <Button style={{ minWidth: '170px' }} variant='question'>
+            <Link href={THISPROJECT.LANDING}>
               <Typography textcolor='#fff' variant='body1'>
-                صفحه اصلی
+                {data.homeBtn.homeBtn}
               </Typography>
             </Link>
           </Button>

@@ -42,13 +42,14 @@ const Header = ({ question }: Props) => {
   const visible = isMobileView ? scrollY > 100 : !isMobileView && scrollY > 350;
   const direction = THISPROJECT.DEFAULT_LOCALE;
   const { push, back } = useRouter();
+  const preAid = localStorage.getItem('aid');
 
   /**
    * hooks and methods
    * _______________________________________________________________________________
    */
   const goBackwards = () => {
-    push(`/question/aid=${question?.preAid}&type=${question?.type}`);
+    push(`/question/aid=${preAid}&type=${question?.type}`);
   };
 
   const getContentBasedOnLayoutSegmen = (pathname: string | null) => {
@@ -59,9 +60,9 @@ const Header = ({ question }: Props) => {
       THISPROJECT.DEFAULT_LOCALE === 'fa_IR'
     ) {
       return (
-        <AppFlex justify='flex-start' onClick={back} style={{ minWidth: '40px', cursor: 'pointer' }}>
-          <FaArrowRightLong />
-        </AppFlex>
+        <div style={{ cursor: 'pointer' }}>
+          <FaArrowRightLong onClick={back} />
+        </div>
       );
     }
 
@@ -71,7 +72,14 @@ const Header = ({ question }: Props) => {
       Number(question?.currentQuestion) > 1 &&
       THISPROJECT.DEFAULT_LOCALE === 'en_US'
     ) {
-      return <FaArrowLeftLong onClick={goBackwards} style={{ cursor: 'pointer' }} />;
+      return (
+        <div
+          onClick={back}
+          style={{ cursor: 'pointer', width: '50px', height: '30px', display: 'flex', alignItems: 'center' }}
+        >
+          <FaArrowLeftLong />
+        </div>
+      );
     }
     if (pathname && pathname !== 'question') {
       return <GiHamburgerMenu onClick={() => setOpenMenu(!openMenu)} style={{ cursor: 'pointer' }} />;
@@ -156,7 +164,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  z-index: 100;
+  z-index: 95;
 
   .logo {
     margin-inline: auto;

@@ -14,8 +14,17 @@ import { Button, Typography } from '@/primitives';
 import { Answer } from '@/types/questions';
 import { useQuestionContext } from '@/providers';
 import { Encode, getCookies } from '@/utils/insdex';
-import { convertToLatinDigits } from '@/utils/question/convertToLatinDigits';
+// import { convertToLatinDigits } from '@/utils/question/convertToLatinDigits';
 
+export const convertToLatinDigits = (persianDateStr: string): string => {
+  const latinDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  const latinDateStr = persianDateStr
+    .split('')
+    .map((digit) => (latinDigits.indexOf(digit) !== -1 ? String(latinDigits.indexOf(digit)) : digit))
+    .join('');
+
+  return latinDateStr;
+};
 /**
  * props
  * _______________________________________________________________________________

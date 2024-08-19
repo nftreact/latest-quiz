@@ -15,3 +15,4 @@ export { validatePhoneInput } from './validatePhoneInput';
 export { getRandomNumber } from './question/getRandomNumber';
 export { timeStringToMilliseconds } from './question/timeStringToMs';
 export { imageLoader } from './imageLoader';
+export { hasDecimal } from './hasDecimal';

@@ -1,3 +1,4 @@
+import { thisLanguage } from '@/constants/projects';
 import { QUESTION } from '@/types/questions';
 import { ApiManager } from '@/utils/axios.config';
 import { Decode, DecodeBase64, DecodePertionDate, parseQueryParams } from '@/utils/insdex';
@@ -16,10 +17,13 @@ type getQuestionProps = {
   Authorization: RequestCookie | undefined;
   userCode: RequestCookie | undefined;
   type: RequestCookie | undefined;
+  ip: string;
 };
 
-export const getQuestion = async ({ params, Authorization, type, userCode }: getQuestionProps) => {
+export const getQuestion = async ({ params, Authorization, type, userCode, ip }: getQuestionProps) => {
+  const basePath = thisLanguage;
   const queryParams = parseQueryParams(Decode(params));
+
   const data: Record<string, string | undefined> = {
     type: queryParams.type ? queryParams.type : type?.value,
     Authorization: Authorization?.value,
@@ -34,6 +38,7 @@ export const getQuestion = async ({ params, Authorization, type, userCode }: get
     weight_goal_kg: DecodeBase64(queryParams?.weight_goal_kg),
     redirect: queryParams?.redirect,
     calendar: DecodePertionDate(queryParams?.calendar),
+    email: DecodeBase64(queryParams.email),
   };
 
   const finalParams = Object.fromEntries(
@@ -45,11 +50,13 @@ export const getQuestion = async ({ params, Authorization, type, userCode }: get
       params: {
         ...finalParams,
         version: 'v3',
+        language: "fa",
+        ip: ip,
       },
     });
 
     if (response.data.data === undefined || response.data.data == null) {
-      redirect('/error?with-problem=true');
+      // redirect(`/error`);
     }
 
     if (response['data']['success'] === 'true') {
@@ -58,6 +65,6 @@ export const getQuestion = async ({ params, Authorization, type, userCode }: get
 
     if (response['data']['success'] === 'false') alert(response['data']['message']);
   } catch (error) {
-    redirect('/error?with-problem=true');
+    redirect(`/error`);
   }
 };

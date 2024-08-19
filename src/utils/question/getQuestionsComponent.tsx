@@ -48,7 +48,11 @@ export const getComponentBaseOnQuestionType = (question: QUESTION | undefined) =
 // getQuestionTitle; **********
 export const getQuestionTitle = (questionType?: string, text?: string) => {
   if (questionType !== 'parasite') {
-    return <QuestionTitle title={text} />;
+    return (
+      <div style={{ paddingTop: '15px', width: 'fit-content', margin: 'auto', textAlign: 'center' }}>
+        <QuestionTitle title={text} />
+      </div>
+    );
   }
 };
 

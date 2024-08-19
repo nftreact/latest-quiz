@@ -4,7 +4,7 @@ import { AppFlex, Typography } from '@/primitives';
 import { styled } from 'styled-components';
 import Slider from 'rc-slider';
 import { TiArrowSortedDown } from 'react-icons/ti';
-import { THISPROJECT } from '@/constants/projects';
+import { THISPROJECT, thisLanguage } from '@/constants/projects';
 import Image from 'next/image';
 import { useWindowSize } from '@/hooks';
 import Warning from '../../../../public/images/warning.png';
@@ -50,7 +50,7 @@ const LineBar = ({ scaleList, thisLabel, value, isSummary, warningDescription, w
    * _______________________________________________________________________________
    */
   return (
-    <Container id='lineBarContainer' direction='column' gap={'20px'} style={{ direction: 'rtl' }}>
+    <Container id='lineBarContainer' direction='column' gap={'20px'}>
       <AppFlex align='center' style={{ width: '100%', position: 'relative', minHeight: '35px' }}>
         <Lable value={lableValue}>
           <Typography textalign='center' style={{ lineHeight: '20px' }} textcolor='#fff' fontSize={12}>
@@ -61,11 +61,11 @@ const LineBar = ({ scaleList, thisLabel, value, isSummary, warningDescription, w
           </AppFlex>
         </Lable>
       </AppFlex>
-      <Slider min={0} max={100} value={value} />
-      <AppFlex justify='space-between' style={{ marginTop: '-10px' }}>
+      <Slider min={0} max={100} value={value} reverse />
+      <AppFlex justify='space-between' direction={thisLanguage === 'ir' ? 'row-reverse' : 'row'}>
         {scaleList?.map((item, i) => {
           return (
-            <Typography key={item + i} textcolor='#D1D5DA' variant='subtitle2'>
+            <Typography key={item + i} textcolor='#D1D5DA' variant='body2'>
               {item}
             </Typography>
           );
@@ -78,7 +78,7 @@ const LineBar = ({ scaleList, thisLabel, value, isSummary, warningDescription, w
             <Image src={Warning} alt='Warning-svg' width={25} height={25} loader={loaderProp} />
           </WarningSVGContainer>
           <AppFlex direction='column' align='flex-start' gap={'10px'}>
-            <Typography variant='body1' fontWeight={700} fontSize={16}>
+            <Typography variant='body1' fontWeight={600} fontSize={16}>
               {warningTitle}
             </Typography>
             <Typography variant='subtitle2' textcolor='#663C01'>
@@ -117,15 +117,14 @@ const Container = styled(AppFlex)`
   .rc-slider-track {
     margin-top: -3px;
     height: 10px;
-    background: linear-gradient(-90deg, #fc806e, #f9eb7c 31.77%, #b7f5a8 66.15%, #96d9ff);
-    z-index: -1;
+    background: linear-gradient(-90deg, #96d9ff, #b7f5a8 31.77%, #f9eb7c 66.15%, #fc806e);
   }
 
   & .rc-slider-rail {
     margin-top: -3px;
     height: 10px;
-    background: linear-gradient(-90deg, #fc806e, #f9eb7c 31.77%, #b7f5a8 66.15%, #96d9ff);
-
+    background-color: red;
+    background: linear-gradient(-90deg, #96d9ff, #b7f5a8 31.77%, #f9eb7c 66.15%, #fc806e);
     opacity: 1;
     transition: opacity 1s ease-in-out;
   }
@@ -145,12 +144,15 @@ const Container = styled(AppFlex)`
 
 const Lable = styled(AppFlex)<{ value: any }>`
   position: absolute;
-  padding: 4px 15px;
+  padding-block: 5px;
+  padding-inline: 5px;
   transition: all 2s ease-in;
-  left: ${({ value }) => value && `${value}%`};
+  right: ${({ value }) => value && `${value - 4}%`};
   background-color: #757575;
   border-radius: 4px;
   max-width: 70px;
+  display: flex;
+  justify-content: center;
 
   svg {
     fill: #757575;

@@ -48,14 +48,20 @@ const SelectItem = React.forwardRef(
       <Root isselectedroot={String(isSelected)} isDesc={Boolean(answer.description)} {...rest}>
         {answer?.image && (
           <ImageWrapper>
-            <Image alt='select-image' src={answer.image} loading='lazy' fill style={{ objectFit: 'contain' }} />
+            <Image
+              alt='select-image'
+              src={answer.image}
+              loading='lazy'
+              fill
+              style={{ position: 'absolute', bottom: 0, objectFit: 'contain' }}
+            />
           </ImageWrapper>
         )}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <Typography tag='p' variant='subtitle1'>
+        <div style={{ display: 'grid' }}>
+          <Typography tag='p' variant='subtitle1' fontWeight={500}>
             {answer.text}
           </Typography>
-          <Typography tag='p' variant='subtitle2'>
+          <Typography tag='p' variant='subtitle2' fontWeight={500}>
             {answer.description}
           </Typography>
         </div>
@@ -82,28 +88,19 @@ const Root = styled.div<{
   isselectedroot: string;
   isDesc: boolean;
 }>`
+  position: relative;
   border-radius: 15px;
   cursor: pointer;
   min-height: 75px;
   display: flex;
   align-items: center;
   padding-inline: 16px;
-  gap: 5px;
 
   &:hover {
     @media (min-width: 700px) {
       background-color: #fff7de;
     }
   }
-
-  ${({ isDesc }) =>
-    isDesc
-      ? css`
-          padding-block: 10px;
-        `
-      : css`
-          padding-block: 0;
-        `};
 
   ${({ isselectedroot }) =>
     isselectedroot === 'true'
@@ -119,8 +116,9 @@ const Root = styled.div<{
 
 const ImageWrapper = styled.div`
   position: relative;
-  min-width: 80px;
+  min-width: 85px;
   min-height: 70px;
+  height: 100%;
 `;
 
 const TickWrapper = styled.div<{ isselected: boolean | string }>`

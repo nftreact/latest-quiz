@@ -51,7 +51,7 @@ const PreCheckoutBanner = ({ bgColor, image, text }: PreCheckoutBannerProps) => 
       <Container>
         <div className={`preCheckoutBannerTitle${isShown ? 'Shown' : ''} is-margin`}>
           <Divider />
-          <Typography variant='h2' tag='h1' textcolor={colors.white}>
+          <Typography fontWeight={600} variant='h2' tag='h1' textcolor={colors.white}>
             {text}
           </Typography>
         </div>
@@ -104,7 +104,7 @@ const Root = styled.section<{ bgcolor: string }>`
     opacity: 1;
     transform: translate(0, 0);
     transition: all 1s ease-in;
-}
+  }
 
   .preCheckoutBannerTitle {
     opacity: 0;

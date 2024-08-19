@@ -55,11 +55,11 @@ const GenderQuestion = ({ answers }: Props) => {
               // loading='lazy'
               fill
               alt='gender-image'
-              style={{ objectPosition: 'top', objectFit: 'contain' }}
+              style={{ objectFit: 'contain' }}
               sizes='(max-width: 768px) 100vw, 33vw'
             />
             <BottomSection>
-              <Typography textcolor={colors.white} variant='h4' tag='p'>
+              <Typography textcolor={colors.white} variant='h4' tag='p' fontWeight={400}>
                 {item.text}
               </Typography>
               <CircleOutlined color='inherit' />
