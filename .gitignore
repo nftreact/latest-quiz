@@ -16,6 +16,25 @@
 # But keep the BUILD_ID file
 !.next/BUILD_ID
 !.next/routes-manifest.json
+!.next/trace
+!.next/required-server-files.json
+!.next/react-loadable-manifest.json
+!.next/prerender-manifest.json
+!.next/prerender-manifest.js
+!.next/package.json
+!.next/next-server.js.nft.json
+!.next/next-minimal-server.js.nft.json
+!.next/images-manifest.json
+!.next/export-marker.json
+!.next/build-manifest.json
+
+!.next/app-path-routes-manifest.json
+!.next/app-build-manifest.json
+
+
+
+
+
 
 /out/
 
