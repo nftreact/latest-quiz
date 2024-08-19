@@ -1,3 +1,11 @@
 {
-  "/question/[...slug]/page": "app/question/[...slug]/page.js"
+  "/_not-found": "app/_not-found.js",
+  "/checkout/page": "app/checkout/page.js",
+  "/error/page": "app/error/page.js",
+  "/payment/cancel/page": "app/payment/cancel/page.js",
+  "/confirmPay/page": "app/confirmPay/page.js",
+  "/payment/page": "app/payment/page.js",
+  "/payment/success/page": "app/payment/success/page.js",
+  "/question/[...slug]/page": "app/question/[...slug]/page.js",
+  "/preCheckout/page": "app/preCheckout/page.js"
 }
