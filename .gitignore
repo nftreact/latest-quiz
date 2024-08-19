@@ -30,10 +30,8 @@
 
 !.next/app-path-routes-manifest.json
 !.next/app-build-manifest.json
-
 !.next/server
-!.next/static
-!.next/types
+
 
 
 
