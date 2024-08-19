@@ -22,6 +22,7 @@ const LineChartProgressGoalWeight = dynamic(() => import('../parasite-question/c
   ssr: false,
 });
 
+
 const LineChartProgress = dynamic(() => import('../parasite-question/chart/LineChartProgress'), {
   ssr: false,
 });
