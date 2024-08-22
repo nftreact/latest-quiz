@@ -10,17 +10,25 @@ const nextConfig = {
     config.ignoreWarnings = [
       { module: /node_modules\/node-fetch\/lib\/index\.js/ },
       { file: /node_modules\/node-fetch\/lib\/index\.js/ },
-    ];
+    ]
 
-    return config;
+    return config
   },
   compiler: {
     styledComponents: true,
   },
 
   images: {
-    domains: ['matchadiet.com', 'blog.matchadiet.com', 'fasteasy.io', 'web.appscdn.io.', 'matchafit.worldfiles'],
+    domains: [
+      'matchadiet.com',
+      'blog.matchadiet.com',
+      'fasteasy.io',
+      'web.appscdn.io.',
+      'matchafit.worldfiles',
+      'api.matchadiet.com',
+    ],
     remotePatterns: [
+      { protocol: 'https', hostname: 'api.matchadiet.com' },
       {
         protocol: 'https',
         hostname: 'web.appscdn.io',
@@ -83,6 +91,6 @@ const nextConfig = {
       },
     ],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

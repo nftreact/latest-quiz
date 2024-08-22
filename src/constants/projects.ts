@@ -138,7 +138,7 @@ export const projects = {
   matcha: {
     fa_IR: {
       BASE_PATH: '/',
-      SERVER: 'https://matchadiet.com/process/v2',
+      SERVER: 'https://api.matchadiet.com/process/v2',
       PRE_CONNECT_SERVER_URL: 'https://matchadiet.com',
       PROJECT: thisProject.toUpperCase(),
       FIRST_AID: 'start',
