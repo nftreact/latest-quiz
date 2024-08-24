@@ -146,7 +146,7 @@ export const projects = {
       SITE_TITLE: 'ماچا',
       META_DESCRIPTION: 'کاهش وزن پایدار و اصلاح سبک زندگی',
       LOGO_URL: 'https://matchadiet.com/files/icon/logo.png',
-      FAVICON_URL: 'https://matchadiet.com/files/icon/favicon.ico',
+      FAVICON_URL: 'https://api.matchadiet.com/favicon_matcha.ico',
       PRIMARY_COLOR: '#e76d85',
       HOVER_COLOR: '#e54c6a',
       BUTTON_TEXT_COLOR: 'white',
