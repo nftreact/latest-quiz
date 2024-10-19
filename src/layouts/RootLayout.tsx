@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { ReactNode } from 'react';
-import { Main } from './layout.styled';
-import { CustomToast } from '@/shared';
+import { ReactNode } from 'react'
+import { Main } from './layout.styled'
+import { CustomToast } from '@/shared'
 
 /**
  * props
@@ -20,10 +20,10 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       <CustomToast />
       <Main>{children}</Main>
     </>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout
 
 /**
  * styled-component

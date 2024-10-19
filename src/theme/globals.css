@@ -134,12 +134,12 @@ input:-internal-autofill-selected {
   display: none;
 }
 
-.EZDrawer .EZDrawer__checkbox:checked~.EZDrawer__overlay {
+.EZDrawer .EZDrawer__checkbox:checked ~ .EZDrawer__overlay {
   display: block;
   opacity: 1;
 }
 
-.EZDrawer .EZDrawer__checkbox:checked~.EZDrawer__container {
+.EZDrawer .EZDrawer__checkbox:checked ~ .EZDrawer__container {
   visibility: visible;
   transform: translate3d(0, 0, 0) !important;
 }
@@ -511,7 +511,10 @@ form#card-form .submit-button:disabled {
   background: #e041411c !important;
 }
 
-.payments-sdk-contingency-handler payments-sdk-contingency-handler-tag-payments-sdk-contingency-handler payments-sdk-contingency-handler-context-iframe payments-sdk-contingency-handler-focus {
+.payments-sdk-contingency-handler
+  payments-sdk-contingency-handler-tag-payments-sdk-contingency-handler
+  payments-sdk-contingency-handler-context-iframe
+  payments-sdk-contingency-handler-focus {
   z-index: 9999 !important;
 }
 
@@ -544,7 +547,7 @@ form#card-form .submit-button:disabled {
 }
 
 .gridLineFade {
-  animation: fadeIn 0.3s forwards 2s
+  animation: fadeIn 0.3s forwards 2s;
 }
 
 @keyframes fadeIn {

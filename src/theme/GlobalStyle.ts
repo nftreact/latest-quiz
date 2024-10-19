@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle<{ locale: 'en_US' | 'fa_IR' | 'it_US' }>`
   ${({ locale }) =>
@@ -21,6 +21,6 @@ const GlobalStyle = createGlobalStyle<{ locale: 'en_US' | 'fa_IR' | 'it_US' }>`
             /* font-family: system-ui; */
           }
         `};
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

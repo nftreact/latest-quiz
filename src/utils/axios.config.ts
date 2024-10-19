@@ -1,9 +1,15 @@
-import { THISPROJECT } from '@/constants/projects';
-import axios from 'axios';
+import { THISPROJECT } from '@/constants/projects'
+import axios from 'axios'
 
 export const ApiManager = axios.create({
   baseURL: THISPROJECT.SERVER,
   headers: {
     accept: 'application/json',
   },
-});
+})
+
+export type ApiData<T> = {
+  data: T
+  success: string
+  message: string
+}
