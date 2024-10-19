@@ -88,6 +88,7 @@ export default function LandingPage({ searchParams }: { searchParams: FormData }
     setValue('isLoading', isFetching)
   }, [isFetching])
 
+  
   if (!data) return <QuestionLoading />
 
   /**
