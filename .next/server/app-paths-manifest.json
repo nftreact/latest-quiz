@@ -1,7 +1,0 @@
-{
-  "/not-found": "app/not-found.js",
-  "/(question)/question/page": "app/(question)/question/page.js",
-  "/(root)/error/page": "app/(root)/error/page.js",
-  "/(root)/preCheckout/page": "app/(root)/preCheckout/page.js",
-  "/(root)/checkout/page": "app/(root)/checkout/page.js"
-}
